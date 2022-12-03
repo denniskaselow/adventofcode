@@ -12,4 +12,4 @@ void run(Function(String input) solver) {
 }
 
 String _getInput() =>
-    File('bin/input.txt').readAsStringSync().replaceAll('\r\n', '\n');
+    File('bin/input.txt').readAsStringSync().replaceAll('\r\n', '\n').trim();
