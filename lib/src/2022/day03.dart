@@ -1,4 +1,6 @@
-import 'package:adventofcode2022/src/utils.dart';
+import 'package:collection/collection.dart';
+
+import '../utils.dart';
 
 Iterable<String> _processInput(String input) {
   return input.split('\n');
@@ -10,9 +12,9 @@ int day3star1(String input) {
           .map((e) => e.split('').toSet()))
       .map((e) => e.first.intersection(e.last).first)
       .map((e) => e.codeUnits.first <= 'Z'.codeUnits.first
-          ? e.codeUnits.first - 'A'.codeUnits.first + 27
-          : e.codeUnits.first - 'a'.codeUnits.first + 1)
-      .sum();
+          ? e.toInt(offset: 27)
+          : e.toInt(offset: 1))
+      .sum;
 }
 
 int day3star2(String input) {
@@ -31,7 +33,7 @@ int day3star2(String input) {
             .first;
       })
       .map((e) => e.codeUnits.first <= 'Z'.codeUnits.first
-          ? e.codeUnits.first - 'A'.codeUnits.first + 27
-          : e.codeUnits.first - 'a'.codeUnits.first + 1)
-      .sum();
+          ? e.toInt(offset: 27)
+          : e.toInt(offset: 1))
+      .sum;
 }

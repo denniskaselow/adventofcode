@@ -1,4 +1,4 @@
-import 'package:adventofcode2022/src/utils.dart';
+import 'package:collection/collection.dart';
 
 Iterable<String> _processInput(String input) {
   return input.split('\n');
@@ -8,14 +8,14 @@ day2star1(String input) {
   return _processInput(input)
       .map((e) => e.split(' ').map(Rps.forItem1))
       .map((e) => e.last.getScore(e.first))
-      .sum();
+      .sum;
 }
 
 day2star2(String input) {
   return _processInput(input)
       .map(Rps.forItem2)
       .map((e) => e.last.getScore(e.first))
-      .sum();
+      .sum;
 }
 
 enum Rps {
