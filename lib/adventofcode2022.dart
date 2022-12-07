@@ -5,3 +5,4 @@ export 'src/2022/day04.dart';
 export 'src/2022/day05.dart';
 export 'src/2022/day06.dart';
 export 'src/2022/day07.dart';
+export 'src/2022/day08.dart';
