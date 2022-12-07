@@ -22,6 +22,7 @@ include: package:lints/recommended.yaml
 analyzer:
   enable-experiment:
     - records
+    - patterns
 #   exclude:
 #     - path/to/excluded/files/**
 
