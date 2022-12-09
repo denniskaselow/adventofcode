@@ -8,7 +8,9 @@ void main(List<String> arguments) {
 }
 
 void run(Function(String input) solver) {
-  print(solver(_getInput()));
+  var result = solver(_getInput());
+  print('-----');
+  print('RESULT: $result');
 }
 
 String _getInput() => io.File('bin/input.txt')
