@@ -9,9 +9,9 @@ void main(List<String> arguments) {
 
 void run(int star, Function(String input) solver) {
   var result = solver(_getInput());
-  print('-----');
-  print('RESULT $star:\n$result');
-  print('-----');
+  print('-------- RESULT $star: --------');
+  print('$result');
+  print('--------------------------');
 }
 
 String _getInput() => io.File('bin/input.txt')
