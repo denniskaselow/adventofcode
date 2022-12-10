@@ -1,10 +1,10 @@
 import 'package:collection/collection.dart';
 
-int day0star1(String input) {
+int day11star1(String input) {
   return _processInput(input).length;
 }
 
-int day0star2(String input) {
+int day11star2(String input) {
   return _processInput(input).length;
 }
 

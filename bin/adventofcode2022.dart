@@ -3,14 +3,14 @@ import 'dart:io' as io;
 import 'package:adventofcode2022/adventofcode2022.dart';
 
 void main(List<String> arguments) {
-  run(day10star1);
-  run(day10star2);
+  run(1, day11star1);
+  run(2, day11star2);
 }
 
-void run(Function(String input) solver) {
+void run(int star, Function(String input) solver) {
   var result = solver(_getInput());
   print('-----');
-  print('RESULT:\n$result');
+  print('RESULT $star:\n$result');
   print('-----');
 }
 
