@@ -22,3 +22,21 @@ extension FirstIndexWhere<T> on Iterable<T> {
     return -1;
   }
 }
+
+extension DebugIterable<T> on Iterable<T> {
+  Iterable<T> debug(void Function(T item) debugFunction) sync* {
+    for (final item in this) {
+      debugFunction(item);
+      yield item;
+    }
+  }
+
+  Iterable<T> debugIndexed(
+      void Function(int index, T item) debugFunction) sync* {
+    var index = 0;
+    for (final item in this) {
+      debugFunction(index++, item);
+      yield item;
+    }
+  }
+}
