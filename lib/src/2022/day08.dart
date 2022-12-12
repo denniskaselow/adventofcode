@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import '../utils.dart';
+
 int day8star1(String input) => evaluateGrid(input)[0];
 int day8star2(String input) => evaluateGrid(input)[1];
 
@@ -42,17 +44,6 @@ State checkDirection(List<List<int>> grid, int x, int y, Direction direction,
   }
   state.viewingDistance++;
   return state;
-}
-
-enum Direction {
-  north(0, -1),
-  south(0, 1),
-  east(1, 0),
-  west(-1, 0);
-
-  final int x;
-  final int y;
-  const Direction(this.x, this.y);
 }
 
 class State {

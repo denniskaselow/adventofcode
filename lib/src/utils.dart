@@ -40,3 +40,16 @@ extension DebugIterable<T> on Iterable<T> {
     }
   }
 }
+
+
+enum Direction {
+  north(0, -1),
+  south(0, 1),
+  east(1, 0),
+  west(-1, 0);
+
+  final int x;
+  final int y;
+
+  const Direction(this.x, this.y);
+}
