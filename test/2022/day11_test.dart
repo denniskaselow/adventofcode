@@ -2,7 +2,8 @@ import 'package:adventofcode2022/adventofcode2022.dart';
 import 'package:test/test.dart';
 
 void main() {
-  final input = r'''Monkey 0:
+  const input = '''
+Monkey 0:
   Starting items: 79, 98
   Operation: new = old * 19
   Test: divisible by 23

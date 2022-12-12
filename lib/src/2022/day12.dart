@@ -1,5 +1,7 @@
 import 'dart:collection';
 
+import 'package:meta/meta.dart';
+
 import '../utils.dart';
 
 int day12star1(String input) => travel(input, 'S');
@@ -10,8 +12,8 @@ List<List<int>> _processInput(String input) =>
 
 int travel(String input, String startElevation) {
   final grid = _processInput(input);
-  var start = <Cell>[];
-  var end = Cell(0, 0);
+  final start = <Cell>[];
+  var end = const Cell(0, 0);
   for (var y = 0; y < grid.length; y++) {
     if (grid[y].contains(startElevation.codeUnitAt(0))) {
       start.add(Cell(grid[y].indexOf(startElevation.codeUnitAt(0)), y));
@@ -43,7 +45,7 @@ int countSteps(
       return steps;
     }
     for (final direction in Direction.values) {
-      var target = Cell(current.x + direction.x, current.y + direction.y);
+      final target = Cell(current.x + direction.x, current.y + direction.y);
       if (target.x < 0 ||
           target.y < 0 ||
           target.x >= grid[0].length ||
@@ -64,11 +66,12 @@ int countSteps(
   return 0;
 }
 
+@immutable
 class Cell {
   final int x;
   final int y;
 
-  Cell(this.x, this.y);
+  const Cell(this.x, this.y);
 
   @override
   bool operator ==(Object other) =>

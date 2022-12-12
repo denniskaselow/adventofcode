@@ -2,7 +2,8 @@ import 'package:adventofcode2022/adventofcode2022.dart';
 import 'package:test/test.dart';
 
 void main() {
-  final input = '''    [D]    
+  const input = '''
+    [D]    
 [N] [C]    
 [Z] [M] [P]
  1   2   3 

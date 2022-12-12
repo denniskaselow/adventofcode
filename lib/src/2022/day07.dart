@@ -1,11 +1,9 @@
 import 'package:collection/collection.dart';
 
-Iterable<String> _processInput(String input) {
-  return input.split('\n');
-}
+Iterable<String> _processInput(String input) => input.split('\n');
 
 int day7star1(String input) {
-  Directory root = getRoot(input);
+  final root = getRoot(input);
 
   return root
       .allDirectories()

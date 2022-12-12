@@ -2,7 +2,8 @@ import 'package:adventofcode2022/adventofcode2022.dart';
 import 'package:test/test.dart';
 
 void main() {
-  final input = r'''addx 15
+  const input = '''
+addx 15
 addx -11
 addx 6
 addx -3
@@ -153,7 +154,8 @@ noop''';
     expect(day10star1(input), equals(13140));
   });
   test('day 10 second star', () {
-    expect(day10star2(input), equals('''##..##..##..##..##..##..##..##..##..##..
+    expect(day10star2(input), equals('''
+##..##..##..##..##..##..##..##..##..##..
 ###...###...###...###...###...###...###.
 ####....####....####....####....####....
 #####.....#####.....#####.....#####.....

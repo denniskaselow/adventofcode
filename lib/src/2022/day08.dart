@@ -7,10 +7,8 @@ int day8star2(String input) => evaluateGrid(input)[1];
 
 List<int> evaluateGrid(String input) {
   final lines = input.split('\n').toList();
-  final grid = List<List<int>>.generate(
-      lines.first.length,
-      (x) => List<int>.generate(
-          lines.length, (y) => int.parse(lines[y][x])));
+  final grid = List<List<int>>.generate(lines.first.length,
+      (x) => List<int>.generate(lines.length, (y) => int.parse(lines[y][x])));
   var visibleCount = 0;
   var bestScenicScore = 0;
   for (var y = 0; y < grid.length; y++) {
@@ -31,14 +29,14 @@ List<int> evaluateGrid(String input) {
   return [visibleCount, bestScenicScore];
 }
 
-State checkDirection(List<List<int>> grid, int x, int y, Direction direction,
-    int height) {
+State checkDirection(
+    List<List<int>> grid, int x, int y, Direction direction, int height) {
   if (x == 0 || x == grid.length - 1 || y == 0 || y == grid[x].length - 1) {
-    return State(0, true);
+    return State(0);
   }
   final checkX = x + direction.x;
   final checkY = y + direction.y;
-  var state = State(0, false);
+  var state = State(0, visible: false);
   if (height > grid[checkX][checkY]) {
     state = checkDirection(grid, checkX, checkY, direction, height);
   }
@@ -49,5 +47,5 @@ State checkDirection(List<List<int>> grid, int x, int y, Direction direction,
 class State {
   int viewingDistance;
   bool visible;
-  State(this.viewingDistance, this.visible);
+  State(this.viewingDistance, {this.visible = true});
 }

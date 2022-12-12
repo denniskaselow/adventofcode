@@ -1,16 +1,10 @@
 import 'package:collection/collection.dart';
 
-Iterable<String> _processInput(String input) {
-  return input.split('\n');
-}
+Iterable<String> _processInput(String input) => input.split('\n');
 
-String day5star1(String input) {
-  return _run(input, move1);
-}
+String day5star1(String input) => _run(input, move1);
 
-String day5star2(String input) {
-  return _run(input, move2);
-}
+String day5star2(String input) => _run(input, move2);
 
 String _run(
     String input,
@@ -27,9 +21,9 @@ String _run(
       continue;
     }
     if (isStack) {
-      final items = List.generate(stackCount,
-          (index) => line.substring(index * 4 + 1, index * 4 + 2).trim());
-      items.forEachIndexed((index, element) {
+      List.generate(stackCount,
+              (index) => line.substring(index * 4 + 1, index * 4 + 2).trim())
+          .forEachIndexed((index, element) {
         if (element.isNotEmpty) {
           stacks[index].insert(0, element);
         }

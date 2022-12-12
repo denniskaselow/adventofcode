@@ -2,7 +2,8 @@ import 'package:adventofcode2022/adventofcode2022.dart';
 import 'package:test/test.dart';
 
 void main() {
-  final input = r'''30373
+  const input = '''
+30373
 25512
 65332
 33549

@@ -2,7 +2,8 @@ import 'package:adventofcode2022/adventofcode2022.dart';
 import 'package:test/test.dart';
 
 void main() {
-  final input = r'''R 4
+  const input = '''
+R 4
 U 4
 L 3
 D 1
@@ -18,7 +19,8 @@ R 2''';
     expect(day9star2(input), equals(1));
   });
   test('day 9 second star 2', () {
-    final input2 = '''R 5
+    const input2 = '''
+R 5
 U 8
 L 8
 D 3

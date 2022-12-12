@@ -9,7 +9,8 @@ int day11star2(String input) =>
 int executeRounds(String input, int rounds, ManageWorryLevel manageWorryLevel) {
   final monkeys = _processInput(input);
   final inspections = List.filled(monkeys.length, 0);
-  var maxWorry = monkeys.fold(1, (value, element) => value * element[2].first);
+  final maxWorry =
+      monkeys.fold(1, (value, element) => value * element[2].first);
   for (var round = 0; round < rounds; round++) {
     for (var i = 0; i < monkeys.length; i++) {
       final monkey = monkeys[i];

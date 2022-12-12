@@ -2,7 +2,8 @@ import 'package:adventofcode2022/adventofcode2022.dart';
 import 'package:test/test.dart';
 
 void main() {
-  final input = '''A Y
+  const input = '''
+A Y
 B X
 C Z''';
 

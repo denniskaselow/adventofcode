@@ -8,10 +8,10 @@ void main(List<String> arguments) {
 }
 
 void run(int star, Function(String input) solver) {
-  var result = solver(_getInput());
-  print('-------- RESULT $star: --------');
-  print('$result');
-  print('--------------------------');
+  final result = solver(_getInput());
+  io.stdout.writeln('-------- RESULT $star: --------');
+  io.stdout.writeln('$result');
+  io.stdout.writeln('--------------------------');
 }
 
 String _getInput() => io.File('bin/input.txt')

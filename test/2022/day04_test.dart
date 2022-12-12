@@ -2,7 +2,8 @@ import 'package:adventofcode2022/adventofcode2022.dart';
 import 'package:test/test.dart';
 
 void main() {
-  final input = '''2-4,6-8
+  const input = '''
+2-4,6-8
 2-3,4-5
 5-7,7-9
 2-8,3-7
