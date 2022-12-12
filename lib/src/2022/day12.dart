@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import '../utils.dart';
 
 int day12star1(String input) => travel(input, 'S');
@@ -8,83 +10,74 @@ List<List<int>> _processInput(String input) =>
 
 int travel(String input, String startElevation) {
   final grid = _processInput(input);
-  var open = <Pos>[];
-  var end = Pos(0, 0, 0);
+  var start = <Cell>[];
+  var end = Cell(0, 0);
   for (var y = 0; y < grid.length; y++) {
     if (grid[y].contains(startElevation.codeUnitAt(0))) {
-      open.add(Pos(grid[y].indexOf(startElevation.codeUnitAt(0)), y, 0));
+      start.add(Cell(grid[y].indexOf(startElevation.codeUnitAt(0)), y));
       if (startElevation == 'S') {
-        grid[y][open.last.x] = 'a'.codeUnitAt(0);
+        grid[y][start.last.x] = 'a'.codeUnitAt(0);
       }
     }
     if (grid[y].contains('E'.codeUnitAt(0))) {
-      end = Pos(grid[y].indexOf('E'.codeUnitAt(0)), y, 0);
+      end = Cell(grid[y].indexOf('E'.codeUnitAt(0)), y);
       grid[y][end.x] = 'z'.codeUnitAt(0);
     }
   }
-  final visited = <Pos>[];
-  open.sort((a, b) => end.distance(a) - end.distance(b));
-  final steps = findPath(grid, open.removeLast(), end, visited, open, 0);
-  return steps.first.steps;
+  final open = Queue<Cell>.from(start);
+  return countSteps(grid, end, <Cell>{}, open);
 }
 
-List<Pos> findPath(List<List<int>> grid, Pos start, Pos end, List<Pos> visited,
-    List<Pos> open, int steps) {
-  if (visited.contains(start)) {
-    return [];
-  }
-  visited.add(start);
-  if (start == end) {
-    return [start];
-  }
-  final targets = <Pos>[];
-  for (final direction in Direction.values) {
-    var target = Pos(start.x + direction.x, start.y + direction.y, steps + 1);
-    if (target.x < 0 ||
-        target.y < 0 ||
-        target.x >= grid[0].length ||
-        target.y >= grid.length) {
-    } else if (grid[target.y][target.x] <= grid[start.y][start.x] + 1) {
-      if (!visited.contains(target)) {
-        targets.add(target);
+int countSteps(
+  List<List<int>> grid,
+  Cell end,
+  Set<Cell> visited,
+  Queue<Cell> open,
+) {
+  var steps = 0;
+  final frontier = <Cell>{};
+  visited.addAll(open);
+  do {
+    final current = open.removeFirst();
+    if (current == end) {
+      return steps;
+    }
+    for (final direction in Direction.values) {
+      var target = Cell(current.x + direction.x, current.y + direction.y);
+      if (target.x < 0 ||
+          target.y < 0 ||
+          target.x >= grid[0].length ||
+          target.y >= grid.length) {
+      } else if (grid[target.y][target.x] <= grid[current.y][current.x] + 1 &&
+          !visited.contains(target)) {
+        frontier.add(target);
       }
     }
-  }
-  targets.sort((a, b) => end.distance(a) - end.distance(b));
-  open.insertAll(0, targets);
-  do {
-    final target = open.removeLast();
 
-    final path = findPath(grid, target, end, visited, open, target.steps);
-    if (path.isNotEmpty) {
-      return path..add(start);
+    if (open.isEmpty) {
+      open.addAll(frontier);
+      visited.addAll(frontier);
+      steps++;
+      frontier.clear();
     }
   } while (open.isNotEmpty);
-  return [];
+  return 0;
 }
 
-class Pos {
-  int x;
-  int y;
-  int steps;
+class Cell {
+  final int x;
+  final int y;
 
-  Pos(this.x, this.y, this.steps);
-
-  int distance(Pos other) => steps + (other.x - x).abs() + (other.y - y).abs();
-
-  @override
-  String toString() {
-    return '$x:$y ($steps)';
-  }
+  Cell(this.x, this.y);
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is Pos &&
+      other is Cell &&
           runtimeType == other.runtimeType &&
           x == other.x &&
           y == other.y;
 
   @override
-  int get hashCode => x.hashCode ^ y.hashCode;
+  int get hashCode => Object.hash(x, y);
 }
