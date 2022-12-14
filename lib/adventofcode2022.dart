@@ -12,3 +12,4 @@ export 'src/2022/day11.dart';
 export 'src/2022/day12.dart';
 export 'src/2022/day13.dart';
 export 'src/2022/day14.dart';
+export 'src/2022/day15.dart';
