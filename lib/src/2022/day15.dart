@@ -1,59 +1,44 @@
 import 'dart:math';
 
+import 'package:collection/collection.dart';
+
 int day15star1(String input) {
   const yToCheck = 2000000;
-  return _processInput(input).fold(<Point>{}, (previousValue, element) {
-    final sensor = element[0];
-    final beacon = element[1];
-    final dist = sensor.manhattenDistance(beacon);
-    final deltaYCheck = (yToCheck - sensor.y).abs();
-    if ((yToCheck - sensor.y).abs() < dist) {
-      for (var x = -dist + deltaYCheck; x <= dist - deltaYCheck; x++) {
-        previousValue.add(Point(sensor.x + x, yToCheck));
-      }
-    }
-    previousValue.remove(beacon);
-    return previousValue;
-  }).length;
+  return getLineCoverage(_processInput(input), yToCheck)
+      .line
+      .map((e) => e.width)
+      .sum;
 }
+
+LineCoverage getLineCoverage(
+        Iterable<List<Point<int>>> processInput, int yToCheck) =>
+    processInput.fold(LineCoverage(), (previousValue, element) {
+      final sensor = element[0];
+      final beacon = element[1];
+      final dist = sensor.manhattenDistance(beacon);
+      final deltaYCheck = (yToCheck - sensor.y).abs();
+      if ((yToCheck - sensor.y).abs() < dist) {
+        final left = sensor.x - dist + deltaYCheck;
+        final width = (dist - deltaYCheck) * 2;
+        previousValue.add(Rectangle(left, yToCheck, width, 1));
+      }
+      return previousValue;
+    });
 
 int day15star2(String input) {
   final sbPairs = _processInput(input);
-  final candidates = <Point<int>>{};
-  const other = 4000000;
-  for (final pair in sbPairs) {
-    final sensor = pair[0];
-    final beacon = pair[1];
-    final dist = sensor.manhattenDistance(beacon) + 1;
-    for (var y = -dist; y <= dist; y++) {
-      for (final x in [dist - y, -dist + y]) {
-        final candidateX = sensor.x + x;
-        final candidateY = sensor.y + y;
-        if (candidateX >= 0 &&
-            candidateY >= 0 &&
-            candidateX <= other &&
-            candidateY <= other) {
-          candidates.add(Point<int>(candidateX, candidateY));
-        }
-      }
+  var y = 0;
+  while (y <= 4000000) {
+    final line = getLineCoverage(sbPairs, y).line;
+    if (line.length > 1) {
+      line.sort((a, b) => a.left - b.left);
+      final x = line.first.right + 1;
+      final y = line.first.top;
+      return x * 4000000 + y;
     }
+    y++;
   }
-  for (final pair in sbPairs) {
-    final notCandidates = <Point>{};
-    for (final candidate in candidates) {
-      final sensor = pair[0];
-      final beacon = pair[1];
-      final dist = sensor.manhattenDistance(beacon);
-      final candidateDist = sensor.manhattenDistance(candidate);
-      if (candidateDist <= dist) {
-        notCandidates.add(candidate);
-      }
-      notCandidates.add(beacon);
-    }
-    candidates.removeAll(notCandidates);
-  }
-  final result = candidates.first;
-  return result.x * 4000000 + result.y;
+  throw Exception('no result found');
 }
 
 Iterable<List<Point<int>>> _processInput(String input) => input
@@ -66,4 +51,28 @@ Iterable<List<Point<int>>> _processInput(String input) => input
 extension ManhattenDistance on Point<int> {
   int manhattenDistance(Point<int> other) =>
       (x - other.x).abs() + (y - other.y).abs();
+}
+
+class LineCoverage {
+  List<Rectangle<int>> line = [];
+
+  void add(Rectangle<int> section) {
+    _add(section, 0);
+  }
+
+  void _add(Rectangle<int> section, int index) {
+    Rectangle<int>? boundingBox;
+    for (var i = 0; i < line.length; i++) {
+      final current = line[i];
+      if (current.intersects(section)) {
+        boundingBox = current.boundingBox(section);
+        line.removeAt(i);
+        _add(boundingBox, i);
+        break;
+      }
+    }
+    if (boundingBox == null) {
+      line.add(section);
+    }
+  }
 }
