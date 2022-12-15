@@ -15,7 +15,7 @@ LineCoverage getLineCoverage(
     processInput.fold(LineCoverage(), (previousValue, element) {
       final sensor = element[0];
       final beacon = element[1];
-      final dist = sensor.manhattenDistance(beacon);
+      final dist = sensor.manhattanDistance(beacon);
       final deltaYCheck = (yToCheck - sensor.y).abs();
       if ((yToCheck - sensor.y).abs() < dist) {
         final left = sensor.x - dist + deltaYCheck;
@@ -27,18 +27,54 @@ LineCoverage getLineCoverage(
 
 int day15star2(String input) {
   final sbPairs = _processInput(input);
-  var y = 0;
-  while (y <= 4000000) {
-    final line = getLineCoverage(sbPairs, y).line;
-    if (line.length > 1) {
-      line.sort((a, b) => a.left - b.left);
-      final x = line.first.right + 1;
-      final y = line.first.top;
-      return x * 4000000 + y;
-    }
-    y++;
+  const size = 4000000;
+  final linesNwSe = <Line>[];
+  final linesSwNe = <Line>[];
+  for (final pair in sbPairs) {
+    final sensor = pair[0];
+    final beacon = pair[1];
+    final dist = sensor.manhattanDistance(beacon) + 1;
+    final lineNwSe = Line(Point(sensor.x + 1, sensor.y + dist - 1),
+        Point(sensor.x + dist, sensor.y));
+    final lineNwSe2 = Line(Point(sensor.x - dist, sensor.y),
+        Point(sensor.x - 1, sensor.y - dist + 1));
+    linesNwSe.addAll([lineNwSe, lineNwSe2]);
+    final lineSwNe = Line(Point(sensor.x, sensor.y - dist),
+        Point(sensor.x + dist - 1, sensor.y - 1));
+    final lineSwNe2 = Line(Point(sensor.x - dist + 1, sensor.y + 1),
+        Point(sensor.x, sensor.y + dist));
+    linesSwNe.addAll([lineSwNe, lineSwNe2]);
   }
-  throw Exception('no result found');
+  final candidates = <Point<int>>{};
+  for (final lineNwSe in linesNwSe) {
+    for (final lineSwNe in linesSwNe) {
+      final intersection = lineNwSe.intersection(lineSwNe);
+      if (intersection != null) {
+        final candidateX = intersection.x;
+        final candidateY = intersection.y;
+        if (candidateX >= 0 &&
+            candidateY >= 0 &&
+            candidateX <= size &&
+            candidateY <= size) {
+          candidates.add(intersection);
+        }
+      }
+    }
+  }
+  for (final pair in sbPairs) {
+    final notCandidates = <Point<int>>{};
+    for (final candidate in candidates) {
+      final sensor = pair[0];
+      final beacon = pair[1];
+      final dist = sensor.manhattanDistance(beacon);
+      final candidateDist = sensor.manhattanDistance(candidate);
+      if (candidateDist <= dist) {
+        notCandidates.add(candidate);
+      }
+    }
+    candidates.removeAll(notCandidates);
+  }
+  return candidates.first.x * 4000000 + candidates.first.y;
 }
 
 Iterable<List<Point<int>>> _processInput(String input) => input
@@ -48,8 +84,8 @@ Iterable<List<Point<int>>> _processInput(String input) => input
     .map((e) =>
         [Point(e.first.first, e.first.last), Point(e.last.first, e.last.last)]);
 
-extension ManhattenDistance on Point<int> {
-  int manhattenDistance(Point<int> other) =>
+extension ManhattanDistance on Point<int> {
+  int manhattanDistance(Point<int> other) =>
       (x - other.x).abs() + (y - other.y).abs();
 }
 
@@ -74,5 +110,37 @@ class LineCoverage {
     if (boundingBox == null) {
       line.add(section);
     }
+  }
+}
+
+class Line {
+  final Point<int> from;
+  final Point<int> to;
+  Line(this.from, this.to);
+
+  Point<int>? intersection(Line other) {
+    final x1 = from.x;
+    final x2 = to.x;
+    final x3 = other.from.x;
+    final x4 = other.to.x;
+
+    final y1 = from.y;
+    final y2 = to.y;
+    final y3 = other.from.y;
+    final y4 = other.to.y;
+
+    final t = ((x1 - x3) * (y3 - y4) - (y1 - y3) * (x3 - x4)) /
+        ((x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4));
+
+    if (t >= 0 && t <= 1) {
+      return Point((x1 + t * (x2 - x1)).toInt(), (y1 + t * (y2 - y1)).toInt());
+    } else {
+      return null;
+    }
+  }
+
+  @override
+  String toString() {
+    return 'Line{from: $from, to: $to}';
   }
 }
