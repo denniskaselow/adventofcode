@@ -8,9 +8,13 @@ void main(List<String> arguments) {
 }
 
 void run(int star, Function(String input) solver) {
-  final result = solver(_getInput());
+  final input = _getInput();
+  final stopwatch = Stopwatch()..start();
+  final result = solver(input);
+  final duration = stopwatch.elapsed;
   io.stdout.writeln('-------- RESULT $star: --------');
   io.stdout.writeln('$result');
+  io.stdout.writeln('$duration');
   io.stdout.writeln('--------------------------');
 }
 
