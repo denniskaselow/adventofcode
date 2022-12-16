@@ -140,7 +140,5 @@ class Line {
   }
 
   @override
-  String toString() {
-    return 'Line{from: $from, to: $to}';
-  }
+  String toString() => 'Line{from: $from, to: $to}';
 }
