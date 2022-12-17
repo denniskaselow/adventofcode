@@ -3,8 +3,8 @@ import 'dart:io' as io;
 import 'package:adventofcode2022/adventofcode2022.dart';
 
 void main(List<String> arguments) {
-  run(1, day16star1);
-  run(2, day16star2);
+  run(1, day17star1);
+  run(2, day17star2);
 }
 
 void run(int star, Function(String input) solver) {
@@ -15,7 +15,7 @@ void run(int star, Function(String input) solver) {
   io.stdout.writeln('-------- RESULT $star: --------');
   io.stdout.writeln('$result');
   io.stdout.writeln('$duration');
-  io.stdout.writeln('--------------------------');
+  io.stdout.writeln('---------------------------');
 }
 
 String _getInput() => io.File('bin/input.txt')

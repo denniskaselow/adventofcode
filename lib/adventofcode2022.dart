@@ -14,3 +14,4 @@ export 'src/2022/day13.dart';
 export 'src/2022/day14.dart';
 export 'src/2022/day15.dart';
 export 'src/2022/day16.dart';
+export 'src/2022/day17.dart';
