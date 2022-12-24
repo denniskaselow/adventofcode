@@ -3,8 +3,6 @@ import 'dart:math';
 final _regExp = RegExp(
     r'Blueprint (?<id>\d+): Each ore robot costs (?<ore>\d+) ore. Each clay robot costs (?<clay>\d+) ore. Each obsidian robot costs (?<obsidianOre>\d+) ore and (?<obsidianClay>\d+) clay. Each geode robot costs (?<geodeOre>\d+) ore and (?<geodeObsidian>\d+) obsidian.');
 
-int counter = 0;
-
 int day19star1(String input) {
   final blueprints = _processInput(input);
   var result = 0;
@@ -16,18 +14,12 @@ int day19star1(String input) {
 }
 
 int day19star2(String input) {
-  const result = 0;
-  // too slow
-  // final blueprints = _processInput(input);
-  // var result = 1;
-  // for (final blueprint in blueprints.take(3)) {
-  //   counter = 0;
-  //   harvestGeodes(blueprint, 32);
-  //   result *= blueprint.maxGeodes;
-  //   print('$counter paths');
-  //   print('${blueprint.id} - maxGeodes: ${blueprint.maxGeodes}');
-  // }
-  // return result;
+  final blueprints = _processInput(input);
+  var result = 1;
+  for (final blueprint in blueprints.take(3)) {
+    harvestGeodes(blueprint, 32);
+    result *= blueprint.maxGeodes;
+  }
   return result;
 }
 
@@ -52,7 +44,8 @@ Iterable<Blueprint> _processInput(String input) => input
 void harvestGeodes(Blueprint blueprint,
     [int timeLeft = 24,
     List<int> res = const [0, 0, 0, 0],
-    List<int> bots = const [1, 0, 0, 0]]) {
+    List<int> bots = const [1, 0, 0, 0],
+    List<int> lastharvest = const [0, 0, 0, 0]]) {
   final harvest = bots.toList();
   blueprint.maxGeodes = max(blueprint.maxGeodes, res[3]);
   if (timeLeft > 0) {
@@ -74,44 +67,66 @@ void harvestGeodes(Blueprint blueprint,
         2;
     if (res[3] + harvest[3] + timeLeft * (bots[3] + possibleGeodeBots) >
         blueprint.maxGeodes) {
+      var canBuildEverything = true;
       for (final cost in blueprint.costs.reversed) {
         if (res[0] >= cost[0] && res[1] >= cost[1] && res[2] >= cost[2]) {
-          final nextBots = bots.toList();
-          nextBots[bot]++;
-          harvestGeodes(
-              blueprint,
-              timeLeft - 1,
-              [
-                res[0] - cost[0] + harvest[0],
-                res[1] - cost[1] + harvest[1],
-                res[2] - cost[2] + harvest[2],
-                res[3] + harvest[3]
-              ],
-              nextBots);
+          // don't produce bots if they already produce enough ressources of
+          // their type to build a building every minute
+          if (bot == 3 || blueprint.maxCosts[bot] > bots[bot]) {
+            // don't build a bot that could have already been produced the
+            // previous minute
+            if (bot == 3 ||
+                !(res[0] - lastharvest[0] >= cost[0] &&
+                    res[1] - lastharvest[1] >= cost[1] &&
+                    res[2] - lastharvest[2] >= cost[2])) {
+              final nextBots = bots.toList();
+              nextBots[bot]++;
+              harvestGeodes(
+                  blueprint,
+                  timeLeft - 1,
+                  [
+                    res[0] - cost[0] + harvest[0],
+                    res[1] - cost[1] + harvest[1],
+                    res[2] - cost[2] + harvest[2],
+                    res[3] + harvest[3]
+                  ],
+                  nextBots,
+                  harvest);
+            }
+          }
+        } else {
+          canBuildEverything = false;
         }
         bot--;
       }
-      harvestGeodes(
-          blueprint,
-          timeLeft - 1,
-          [
-            res[0] + harvest[0],
-            res[1] + harvest[1],
-            res[2] + harvest[2],
-            res[3] + harvest[3]
-          ],
-          bots);
+      if (!canBuildEverything) {
+        harvestGeodes(
+            blueprint,
+            timeLeft - 1,
+            [
+              res[0] + harvest[0],
+              res[1] + harvest[1],
+              res[2] + harvest[2],
+              res[3] + harvest[3]
+            ],
+            bots,
+            harvest);
+      }
     }
   }
-  counter++;
-  // if (counter % 100000000 == 0) {
-  //   print('$counter ~~~ ${blueprint.id} => $bots harvested $res');
-  // }
 }
 
 class Blueprint {
   final int id;
   final List<List<int>> costs;
+  final List<int> maxCosts;
   int maxGeodes = 0;
-  Blueprint(this.id, this.costs);
+  Blueprint(this.id, this.costs)
+      : maxCosts = costs.fold(
+            [0, 0, 0],
+            (previousValue, element) => [
+                  max(previousValue[0], element[0]),
+                  max(previousValue[1], element[1]),
+                  max(previousValue[2], element[2]),
+                ]);
 }
