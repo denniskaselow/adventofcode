@@ -49,10 +49,11 @@ Directory getRoot(String input) {
 }
 
 class Directory {
+  Directory(this.parent);
+
   Map<String, File> files = {};
   Map<String, Directory> directories = {};
   Directory? parent;
-  Directory(this.parent);
 
   int get size =>
       directories.values.fold(0, (value, element) => value + element.size) +
@@ -64,6 +65,6 @@ class Directory {
 }
 
 class File {
-  int size;
   File(this.size);
+  int size;
 }

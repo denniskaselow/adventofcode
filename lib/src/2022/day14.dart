@@ -20,7 +20,7 @@ int simulateSand(Map<int, Set<int>> grid, int maxY, {required bool hasFloor}) {
   final directions = [
     [0, 1],
     [-1, 1],
-    [1, 1]
+    [1, 1],
   ];
   var settledCount = 0;
   while (hasFloor ? !(grid[0]?.contains(500) ?? false) : currentY <= maxY) {
@@ -46,8 +46,10 @@ int simulateSand(Map<int, Set<int>> grid, int maxY, {required bool hasFloor}) {
 
 Map<int, Set<int>> _processInput(String input) => input
         .split('\n')
-        .map((e) =>
-            e.split(' -> ').map((e) => e.split(',').map(int.parse)).window(2))
+        .map(
+          (e) =>
+              e.split(' -> ').map((e) => e.split(',').map(int.parse)).window(2),
+        )
         .fold(<int, Set<int>>{}, (previousValue, element) {
       for (final cell in element) {
         final distX = cell[1].first - cell[0].first;

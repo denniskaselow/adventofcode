@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_dynamic_calls
+
 import 'dart:convert';
 import 'dart:math';
 
@@ -20,20 +22,20 @@ int day13star1(String input) {
 
 int day13star2(String input) {
   final pairs = _processInput(input);
-  final all = [];
+  final all = <List>[];
   for (final pair in pairs) {
     final left = jsonDecode(pair.first) as List;
     final right = jsonDecode(pair.last) as List;
     all.addAll([left, right]);
   }
   const marker1 = [
-    [2]
+    [2],
   ];
   const marker2 = [
-    [6]
+    [6],
   ];
   all.addAll([marker1, marker2]);
-  final sorted = all.sorted((a, b) => compare(a, b));
+  final sorted = all.sorted(compare);
   final result = sorted
       .mapIndexed((index, element) => [index + 1, element])
       .where((element) => element[1] == marker1 || element[1] == marker2);

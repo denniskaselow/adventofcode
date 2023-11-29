@@ -11,7 +11,9 @@ int day15star1(String input) {
 }
 
 LineCoverage getLineCoverage(
-        Iterable<List<Point<int>>> processInput, int yToCheck) =>
+  Iterable<List<Point<int>>> processInput,
+  int yToCheck,
+) =>
     processInput.fold(LineCoverage(), (previousValue, element) {
       final sensor = element[0];
       final beacon = element[1];
@@ -34,15 +36,23 @@ int day15star2(String input) {
     final sensor = pair[0];
     final beacon = pair[1];
     final dist = sensor.manhattanDistance(beacon) + 1;
-    final lineNwSe = Line(Point(sensor.x + 1, sensor.y + dist - 1),
-        Point(sensor.x + dist, sensor.y));
-    final lineNwSe2 = Line(Point(sensor.x - dist, sensor.y),
-        Point(sensor.x - 1, sensor.y - dist + 1));
+    final lineNwSe = Line(
+      Point(sensor.x + 1, sensor.y + dist - 1),
+      Point(sensor.x + dist, sensor.y),
+    );
+    final lineNwSe2 = Line(
+      Point(sensor.x - dist, sensor.y),
+      Point(sensor.x - 1, sensor.y - dist + 1),
+    );
     linesNwSe.addAll([lineNwSe, lineNwSe2]);
-    final lineSwNe = Line(Point(sensor.x, sensor.y - dist),
-        Point(sensor.x + dist - 1, sensor.y - 1));
-    final lineSwNe2 = Line(Point(sensor.x - dist + 1, sensor.y + 1),
-        Point(sensor.x, sensor.y + dist));
+    final lineSwNe = Line(
+      Point(sensor.x, sensor.y - dist),
+      Point(sensor.x + dist - 1, sensor.y - 1),
+    );
+    final lineSwNe2 = Line(
+      Point(sensor.x - dist + 1, sensor.y + 1),
+      Point(sensor.x, sensor.y + dist),
+    );
     linesSwNe.addAll([lineSwNe, lineSwNe2]);
   }
   final candidates = <Point<int>>{};
@@ -79,10 +89,20 @@ int day15star2(String input) {
 
 Iterable<List<Point<int>>> _processInput(String input) => input
     .split('\n')
-    .map((e) => e.split(':').map((e) =>
-        e.split('at')[1].split(',').map((e) => int.parse(e.split('=')[1]))))
-    .map((e) =>
-        [Point(e.first.first, e.first.last), Point(e.last.first, e.last.last)]);
+    .map(
+      (e) => e.split(':').map(
+            (e) => e
+                .split('at')[1]
+                .split(',')
+                .map((e) => int.parse(e.split('=')[1])),
+          ),
+    )
+    .map(
+      (e) => [
+        Point(e.first.first, e.first.last),
+        Point(e.last.first, e.last.last),
+      ],
+    );
 
 extension ManhattanDistance on Point<int> {
   int manhattanDistance(Point<int> other) =>
@@ -114,9 +134,9 @@ class LineCoverage {
 }
 
 class Line {
+  Line(this.from, this.to);
   final Point<int> from;
   final Point<int> to;
-  Line(this.from, this.to);
 
   Point<int>? intersection(Line other) {
     final x1 = from.x;

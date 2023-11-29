@@ -68,10 +68,9 @@ int countSteps(
 
 @immutable
 class Cell {
+  const Cell(this.x, this.y);
   final int x;
   final int y;
-
-  const Cell(this.x, this.y);
 
   @override
   bool operator ==(Object other) =>

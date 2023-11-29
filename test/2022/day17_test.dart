@@ -1,4 +1,4 @@
-import 'package:adventofcode2022/adventofcode2022.dart';
+import 'package:adventofcode/adventofcode2022.dart';
 import 'package:test/test.dart';
 
 void main() {

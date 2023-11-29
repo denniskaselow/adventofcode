@@ -33,14 +33,17 @@ int day18star2(String input) {
     [0, 1, 0],
     [0, -1, 0],
     [0, 0, 1],
-    [0, 0, -1]
+    [0, 0, -1],
   ];
   while (frontier.isNotEmpty) {
     final next = frontier.removeLast();
     visited.add(next);
     for (final direction in directions) {
       final nextCube = Cube(
-          next.x + direction[0], next.y + direction[1], next.z + direction[2]);
+        next.x + direction[0],
+        next.y + direction[1],
+        next.z + direction[2],
+      );
       if (nextCube.x >= -1 &&
           nextCube.y >= -1 &&
           nextCube.z >= -1 &&
@@ -74,10 +77,10 @@ List<Cube> _processInput(String input) => input
     .toList();
 
 class Cube {
+  Cube(this.x, this.y, this.z);
   final int x;
   final int y;
   final int z;
-  Cube(this.x, this.y, this.z);
 
   @override
   bool operator ==(Object other) =>

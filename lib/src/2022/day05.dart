@@ -7,10 +7,14 @@ String day5star1(String input) => _run(input, move1);
 String day5star2(String input) => _run(input, move2);
 
 String _run(
-    String input,
-    void Function(
-            List<List<String>> rows, int amount, int fromColumn, int toColumn)
-        move) {
+  String input,
+  void Function(
+    List<List<String>> rows,
+    int amount,
+    int fromColumn,
+    int toColumn,
+  ) move,
+) {
   final lines = _processInput(input);
   final stackCount = (lines.first.length + 1) ~/ 4;
   final stacks = List<List<String>>.generate(stackCount, (index) => <String>[]);
@@ -21,9 +25,10 @@ String _run(
       continue;
     }
     if (isStack) {
-      List.generate(stackCount,
-              (index) => line.substring(index * 4 + 1, index * 4 + 2).trim())
-          .forEachIndexed((index, element) {
+      List.generate(
+        stackCount,
+        (index) => line.substring(index * 4 + 1, index * 4 + 2).trim(),
+      ).forEachIndexed((index, element) {
         if (element.isNotEmpty) {
           stacks[index].insert(0, element);
         }
@@ -43,16 +48,30 @@ String _run(
 }
 
 void move1(
-    List<List<String>> stacks, int amount, int fromColumn, int toColumn) {
+  List<List<String>> stacks,
+  int amount,
+  int fromColumn,
+  int toColumn,
+) {
   for (var i = 0; i < amount; i++) {
     stacks[toColumn].add(stacks[fromColumn].removeLast());
   }
 }
 
 void move2(
-    List<List<String>> stacks, int amount, int fromColumn, int toColumn) {
-  stacks[toColumn].addAll(stacks[fromColumn]
-      .getRange(stacks[fromColumn].length - amount, stacks[fromColumn].length));
+  List<List<String>> stacks,
+  int amount,
+  int fromColumn,
+  int toColumn,
+) {
+  stacks[toColumn].addAll(
+    stacks[fromColumn].getRange(
+      stacks[fromColumn].length - amount,
+      stacks[fromColumn].length,
+    ),
+  );
   stacks[fromColumn].removeRange(
-      stacks[fromColumn].length - amount, stacks[fromColumn].length);
+    stacks[fromColumn].length - amount,
+    stacks[fromColumn].length,
+  );
 }

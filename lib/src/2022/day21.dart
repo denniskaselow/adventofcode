@@ -5,9 +5,7 @@ int day21star1(String input) {
   return _evaluateMoneky(monkeys, 'root');
 }
 
-int day21star2(String input) {
-  return _processInput(input).length;
-}
+int day21star2(String input) => _processInput(input).length;
 
 int _evaluateMoneky(Map<String, String> monkeys, String monkey) {
   final input = monkeys[monkey]!.split(' ');

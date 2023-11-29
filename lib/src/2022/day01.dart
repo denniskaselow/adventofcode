@@ -1,9 +1,10 @@
 import 'package:collection/collection.dart';
 
 int day1star1(String input) => _processInput(input).fold(
-    0,
-    (previousValue, element) =>
-        previousValue > element ? previousValue : element);
+      0,
+      (previousValue, element) =>
+          previousValue > element ? previousValue : element,
+    );
 
 int day1star2(String input) {
   final caloriesPerElf = _processInput(input).toList()..sort((a, b) => b - a);

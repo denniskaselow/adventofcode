@@ -23,7 +23,7 @@ int executeRounds(String input, int rounds, ManageWorryLevel manageWorryLevel) {
         final worryLevel =
             manageWorryLevel(op[0] == 0 ? item * v1 : item + v1, maxWorry);
         final target = worryLevel % divisibleBy == 0 ? ifTrue : ifFalse;
-        monkeys[target.toInt()][0].add(worryLevel);
+        monkeys[target][0].add(worryLevel);
         inspections[i]++;
       }
       monkey[0].clear();
@@ -36,24 +36,30 @@ int executeRounds(String input, int rounds, ManageWorryLevel manageWorryLevel) {
 List<List<List<int>>> _processInput(String input) => input
     .replaceAll(',', '')
     .split('\n\n')
-    .map((e) => e
-        .split('\n')
-        .skip(1)
-        .map((e) => e.split(':')[1].trim().split(' '))
-        .mapIndexed((index, element) => index == 1
-            ? element
-                .skip(3)
-                .map((e) => e == '*'
-                    ? '0'
-                    : e == '+'
-                        ? '1'
-                        : e == 'old'
-                            ? '0'
-                            : e)
-                .toList()
-            : index > 1
-                ? [element.last]
-                : element)
-        .map((e) => e.map(int.parse).toList())
-        .toList())
+    .map(
+      (e) => e
+          .split('\n')
+          .skip(1)
+          .map((e) => e.split(':')[1].trim().split(' '))
+          .mapIndexed(
+            (index, element) => index == 1
+                ? element
+                    .skip(3)
+                    .map(
+                      (e) => e == '*'
+                          ? '0'
+                          : e == '+'
+                              ? '1'
+                              : e == 'old'
+                                  ? '0'
+                                  : e,
+                    )
+                    .toList()
+                : index > 1
+                    ? [element.last]
+                    : element,
+          )
+          .map((e) => e.map(int.parse).toList())
+          .toList(),
+    )
     .toList();

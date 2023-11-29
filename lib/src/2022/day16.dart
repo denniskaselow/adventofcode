@@ -3,7 +3,8 @@ import 'dart:math';
 import 'package:collection/collection.dart';
 
 final regExp = RegExp(
-    r'Valve (..) has flow rate=(\d+); tunnel(s?) lead(s?) to valve(s?)? (.+)');
+  r'Valve (..) has flow rate=(\d+); tunnel(s?) lead(s?) to valve(s?)? (.+)',
+);
 
 int day16star1(String input) {
   final caverns = getCaverns(input);
@@ -22,7 +23,7 @@ Map<String, Cavern> getCaverns(String input) {
     final match = regExp.firstMatch(line)!;
     final id = match.group(1)!;
     final tunnels = {
-      for (final tunnel in match.group(6)!.split(', ')) tunnel: 1
+      for (final tunnel in match.group(6)!.split(', ')) tunnel: 1,
     };
     tunnels[id] = 0;
     caverns[id] = Cavern(id, int.parse(match.group(2)!), tunnels);
@@ -48,12 +49,16 @@ Map<String, Cavern> getCaverns(String input) {
   return caverns;
 }
 
-int visitNodes(Node current, Map<String, Cavern> caverns,
-    {bool withElephant = false}) {
+int visitNodes(
+  Node current,
+  Map<String, Cavern> caverns, {
+  bool withElephant = false,
+}) {
   final cacheKey =
-      '${current.cavernId}-${current.minutesLeft}-${current.cavernsDone.sorted((a, b) => a.compareTo(b))}';
-  final candidates = caverns.values.where((element) =>
-      element.flow > 0 && !current.cavernsDone.contains(element.id));
+      '''${current.cavernId}-${current.minutesLeft}-${current.cavernsDone.sorted((a, b) => a.compareTo(b))}''';
+  final candidates = caverns.values.where(
+    (element) => element.flow > 0 && !current.cavernsDone.contains(element.id),
+  );
   var pressure = cache[cacheKey] ?? 0;
   if (pressure == 0) {
     for (final candidate in candidates) {
@@ -61,16 +66,22 @@ int visitNodes(Node current, Map<String, Cavern> caverns,
           caverns[current.cavernId]!.tunnels[candidate.id]! -
           1;
       if (timeLeft >= 0) {
-        final node = Node(candidate.id,
-            current.cavernsDone.toSet()..add(candidate.id), timeLeft);
+        final node = Node(
+          candidate.id,
+          current.cavernsDone.toSet()..add(candidate.id),
+          timeLeft,
+        );
         final youPressure =
             visitNodes(node, caverns, withElephant: withElephant);
         final elephantStart = Node('AA', node.cavernsDone.toSet(), 26);
         pressure = max(
-            max(youPressure,
-                    withElephant ? visitNodes(elephantStart, caverns) : 0) +
-                timeLeft * candidate.flow,
-            pressure);
+          max(
+                youPressure,
+                withElephant ? visitNodes(elephantStart, caverns) : 0,
+              ) +
+              timeLeft * candidate.flow,
+          pressure,
+        );
       }
     }
     cache[cacheKey] = pressure;
@@ -83,15 +94,15 @@ final Map<String, int> cache = {};
 List<String> _processInput(String input) => input.split('\n');
 
 class Cavern {
+  Cavern(this.id, this.flow, this.tunnels);
   final String id;
   final int flow;
   final Map<String, int> tunnels;
-  Cavern(this.id, this.flow, this.tunnels);
 }
 
 class Node {
+  Node(this.cavernId, this.cavernsDone, this.minutesLeft);
   final String cavernId;
   final Set<String> cavernsDone;
   final int minutesLeft;
-  Node(this.cavernId, this.cavernsDone, this.minutesLeft);
 }

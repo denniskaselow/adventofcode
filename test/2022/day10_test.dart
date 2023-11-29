@@ -1,4 +1,4 @@
-import 'package:adventofcode2022/adventofcode2022.dart';
+import 'package:adventofcode/adventofcode2022.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -154,13 +154,16 @@ noop''';
     expect(day10star1(input), equals(13140));
   });
   test('day 10 second star', () {
-    expect(day10star2(input), equals('''
+    expect(
+      day10star2(input),
+      equals('''
 ##..##..##..##..##..##..##..##..##..##..
 ###...###...###...###...###...###...###.
 ####....####....####....####....####....
 #####.....#####.....#####.....#####.....
 ######......######......######......####
 #######.......#######.......#######.....
-.'''));
+.'''),
+    );
   });
 }

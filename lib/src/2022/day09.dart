@@ -29,8 +29,10 @@ int evaluate(String input, int tailLength) {
     maxX = max(x, maxX);
     maxY = max(y, maxY);
   }
-  final grid = List.generate(maxX - minX + 1,
-      (index) => List.generate(maxY - minY + 1, (index) => false));
+  final grid = List.generate(
+    maxX - minX + 1,
+    (index) => List.generate(maxY - minY + 1, (index) => false),
+  );
   final startX = -minX;
   final startY = -minY;
   grid[startX][startY] = true;
@@ -73,12 +75,11 @@ void move(List<List<bool>> grid, List<String> movement, Rope rope) {
 }
 
 class Rope {
+  Rope(this.xHead, this.yHead, int tailLength)
+      : xTail = List.filled(tailLength, xHead),
+        yTail = List.filled(tailLength, yHead);
   int xHead;
   int yHead;
   List<int> xTail;
   List<int> yTail;
-
-  Rope(this.xHead, this.yHead, int tailLength)
-      : xTail = List.filled(tailLength, xHead),
-        yTail = List.filled(tailLength, yHead);
 }

@@ -1,6 +1,6 @@
 import 'dart:io' as io;
 
-import 'package:adventofcode2022/adventofcode2022.dart';
+import 'package:adventofcode/adventofcode2022.dart';
 
 void main(List<String> arguments) {
   run(1, day25star1);

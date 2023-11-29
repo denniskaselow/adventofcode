@@ -17,8 +17,8 @@ enum Rps {
   paper(2),
   scissors(3);
 
-  final int value;
   const Rps(this.value);
+  final int value;
 
   static Rps forItem1(String item) {
     if (item == 'A' || item == 'X') {

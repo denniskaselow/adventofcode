@@ -34,7 +34,8 @@ extension DebugIterable<T> on Iterable<T> {
   }
 
   Iterable<T> debugIndexed(
-      void Function(int index, T item) debugFunction) sync* {
+    void Function(int index, T item) debugFunction,
+  ) sync* {
     var index = 0;
     for (final item in this) {
       debugFunction(index++, item);
@@ -49,8 +50,8 @@ enum Direction {
   east(1, 0),
   west(-1, 0);
 
+  const Direction(this.x, this.y);
+
   final int x;
   final int y;
-
-  const Direction(this.x, this.y);
 }

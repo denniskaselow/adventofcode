@@ -7,8 +7,10 @@ int day8star2(String input) => evaluateGrid(input)[1];
 
 List<int> evaluateGrid(String input) {
   final lines = input.split('\n').toList();
-  final grid = List<List<int>>.generate(lines.first.length,
-      (x) => List<int>.generate(lines.length, (y) => int.parse(lines[y][x])));
+  final grid = List<List<int>>.generate(
+    lines.first.length,
+    (x) => List<int>.generate(lines.length, (y) => int.parse(lines[y][x])),
+  );
   var visibleCount = 0;
   var bestScenicScore = 0;
   for (var y = 0; y < grid.length; y++) {
@@ -30,7 +32,12 @@ List<int> evaluateGrid(String input) {
 }
 
 State checkDirection(
-    List<List<int>> grid, int x, int y, Direction direction, int height) {
+  List<List<int>> grid,
+  int x,
+  int y,
+  Direction direction,
+  int height,
+) {
   if (x == 0 || x == grid.length - 1 || y == 0 || y == grid[x].length - 1) {
     return State(0);
   }
@@ -45,7 +52,7 @@ State checkDirection(
 }
 
 class State {
+  State(this.viewingDistance, {this.visible = true});
   int viewingDistance;
   bool visible;
-  State(this.viewingDistance, {this.visible = true});
 }
