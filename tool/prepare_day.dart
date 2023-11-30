@@ -1,9 +1,11 @@
 import 'dart:io';
 
-void main() {
-  final date = DateTime.now();
-  final year = date.year;
-  final paddedDay = date.day.toString().padLeft(2, '0');
+void main(List<String> args) {
+  final (day, year) = switch (args) {
+    [final day, final year] => (int.parse(day), int.parse(year)),
+    final _ => (DateTime.now().day, DateTime.now().year),
+  };
+  final paddedDay = day.toString().padLeft(2, '0');
 
   File('lib/src/$year/day$paddedDay.dart').writeAsStringSync('''
 import '../utils.dart';
