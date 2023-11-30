@@ -25,6 +25,25 @@ extension FirstIndexWhere<T> on Iterable<T> {
   }
 }
 
+extension ReduceUntil<E> on Iterable<E> {
+  int reduceUntil(E Function(E value, E element) combine, E targetValue) {
+    final iterator = this.iterator;
+    if (!iterator.moveNext()) {
+      throw Exception('no element');
+    }
+    E value = iterator.current;
+    var index = 0;
+    while (iterator.moveNext()) {
+      value = combine(value, iterator.current);
+      index++;
+      if (value == targetValue) {
+        return index;
+      }
+    }
+    return -1;
+  }
+}
+
 extension DebugIterable<T> on Iterable<T> {
   Iterable<T> debug(void Function(T item) debugFunction) sync* {
     for (final item in this) {
@@ -43,6 +62,8 @@ extension DebugIterable<T> on Iterable<T> {
     }
   }
 }
+
+int sum(int a, int b) => a + b;
 
 enum Direction {
   north(0, -1),

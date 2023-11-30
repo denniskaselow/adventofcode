@@ -6,9 +6,9 @@ void main() {
 ''';
 
   test('first star', () {
-    expect(day1star1(input), equals(0));
+    expect(day1star1(input), equals(1));
   });
   test('second star', () {
-    expect(day1star2(input), equals(0));
+    expect(day1star2(input), equals(1));
   });
 }
