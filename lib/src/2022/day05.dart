@@ -1,6 +1,8 @@
 import 'package:collection/collection.dart';
 
-Iterable<String> _processInput(String input) => input.split('\n');
+import '../utils.dart';
+
+Iterable<String> _processInput(String input) => input.lines;
 
 String day5star1(String input) => _run(input, move1);
 

@@ -1,6 +1,8 @@
 import 'package:collection/collection.dart';
 
-Iterable<String> _processInput(String input) => input.split('\n');
+import '../utils.dart';
+
+Iterable<String> _processInput(String input) => input.lines;
 
 int day7star1(String input) {
   final root = getRoot(input);

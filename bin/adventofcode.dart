@@ -18,7 +18,4 @@ void run(int star, Function(String input) solver) {
   io.stdout.writeln('---------------------------');
 }
 
-String _getInput() => io.File('bin/input.txt')
-    .readAsStringSync()
-    .replaceAll('\r\n', '\n')
-    .trimRight();
+String _getInput() => io.File('bin/input.txt').readAsStringSync().trimRight();

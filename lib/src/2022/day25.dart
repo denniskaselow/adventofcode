@@ -1,5 +1,7 @@
 import 'package:collection/collection.dart';
 
+import '../utils.dart';
+
 String day25star1(String input) => _processInput(input).sum.toSnafu();
 
 int day25star2(String input) => _processInput(input).length;
@@ -34,8 +36,7 @@ extension Snafu on int {
       .join();
 }
 
-List<int> _processInput(String input) => input
-    .split('\n')
+List<int> _processInput(String input) => input.lines
     .map(
       (e) => e
           .split('')

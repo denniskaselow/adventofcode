@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:collection/collection.dart';
 
+import '../utils.dart';
+
 int day15star1(String input) {
   const yToCheck = 2000000;
   return getLineCoverage(_processInput(input), yToCheck)
@@ -87,8 +89,7 @@ int day15star2(String input) {
   return candidates.first.x * 4000000 + candidates.first.y;
 }
 
-Iterable<List<Point<int>>> _processInput(String input) => input
-    .split('\n')
+Iterable<List<Point<int>>> _processInput(String input) => input.lines
     .map(
       (e) => e.split(':').map(
             (e) => e

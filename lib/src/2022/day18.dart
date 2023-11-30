@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import '../utils.dart';
+
 int day18star1(String input) {
   final cubes = _processInput(input);
   var touching = 0;
@@ -70,8 +72,7 @@ int day18star2(String input) {
   return touchingWater;
 }
 
-List<Cube> _processInput(String input) => input
-    .split('\n')
+List<Cube> _processInput(String input) => input.lines
     .map((e) => e.split(',').map(int.parse).toList())
     .map((e) => Cube(e[0], e[1], e[2]))
     .toList();

@@ -1,5 +1,7 @@
 import 'package:collection/collection.dart';
 
+import '../utils.dart';
+
 typedef ManageWorryLevel = int Function(int, int);
 
 int day11star1(String input) => executeRounds(input, 20, (x, _) => x ~/ 3);
@@ -37,8 +39,7 @@ List<List<List<int>>> _processInput(String input) => input
     .replaceAll(',', '')
     .split('\n\n')
     .map(
-      (e) => e
-          .split('\n')
+      (e) => e.lines
           .skip(1)
           .map((e) => e.split(':')[1].trim().split(' '))
           .mapIndexed(

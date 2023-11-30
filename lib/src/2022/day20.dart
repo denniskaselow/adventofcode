@@ -1,5 +1,7 @@
 import 'package:more/more.dart';
 
+import '../utils.dart';
+
 int day20star1(String input) => _decrypt(input, 1, 1);
 int day20star2(String input) => _decrypt(input, 811589153, 10);
 
@@ -26,5 +28,4 @@ List<Indexed<int>> mix(List<Indexed<int>> numbers, int repeatMix) {
   return numbers;
 }
 
-List<int> _processInput(String input) =>
-    input.split('\n').map(int.parse).toList();
+List<int> _processInput(String input) => input.lines.map(int.parse).toList();

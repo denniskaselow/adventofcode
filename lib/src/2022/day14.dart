@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:more/more.dart';
 
+import '../utils.dart';
+
 int day14star1(String input) {
   final grid = _processInput(input);
   final maxY = grid.keys.fold(0, max);
@@ -44,12 +46,10 @@ int simulateSand(Map<int, Set<int>> grid, int maxY, {required bool hasFloor}) {
   return settledCount;
 }
 
-Map<int, Set<int>> _processInput(String input) => input
-        .split('\n')
+Map<int, Set<int>> _processInput(String input) => input.lines
         .map(
-          (e) =>
-              e.split(' -> ').map((e) => e.split(',').map(int.parse)).window(2),
-        )
+      (e) => e.split(' -> ').map((e) => e.split(',').map(int.parse)).window(2),
+    )
         .fold(<int, Set<int>>{}, (previousValue, element) {
       for (final cell in element) {
         final distX = cell[1].first - cell[0].first;

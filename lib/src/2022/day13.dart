@@ -5,6 +5,8 @@ import 'dart:math';
 
 import 'package:collection/collection.dart';
 
+import '../utils.dart';
+
 int day13star1(String input) {
   final pairs = _processInput(input);
   final correctIndex = <int>[];
@@ -70,4 +72,4 @@ int compare(List<dynamic> left, List<dynamic> right) {
 }
 
 List<List<String>> _processInput(String input) =>
-    input.split('\n\n').map((e) => e.split('\n').toList()).toList();
+    input.split('\n\n').map((e) => e.lines.toList()).toList();

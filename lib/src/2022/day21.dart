@@ -1,5 +1,7 @@
 import 'package:more/more.dart';
 
+import '../utils.dart';
+
 int day21star1(String input) {
   final monkeys = _processInput(input);
   return _evaluateMoneky(monkeys, 'root');
@@ -29,7 +31,6 @@ int _evaluateMoneky(Map<String, String> monkeys, String monkey) {
   throw Exception('unknonw operation ${input[1]}');
 }
 
-Map<String, String> _processInput(String input) => input
-    .split('\n')
+Map<String, String> _processInput(String input) => input.lines
     .map((e) => e.split(': '))
     .toMap(key: (element) => element[0], value: (element) => element[1]);

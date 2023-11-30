@@ -2,7 +2,7 @@ import 'package:collection/collection.dart';
 
 import '../utils.dart';
 
-Iterable<String> _processInput(String input) => input.split('\n');
+Iterable<String> _processInput(String input) => input.lines;
 
 int day3star1(String input) => _processInput(input)
     .map(

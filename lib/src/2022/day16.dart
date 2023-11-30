@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:collection/collection.dart';
 
+import '../utils.dart';
+
 final regExp = RegExp(
   r'Valve (..) has flow rate=(\d+); tunnel(s?) lead(s?) to valve(s?)? (.+)',
 );
@@ -91,7 +93,7 @@ int visitNodes(
 
 final Map<String, int> cache = {};
 
-List<String> _processInput(String input) => input.split('\n');
+List<String> _processInput(String input) => input.lines;
 
 class Cavern {
   Cavern(this.id, this.flow, this.tunnels);

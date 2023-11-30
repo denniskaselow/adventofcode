@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import '../utils.dart';
+
 final _regExp = RegExp(
   r'Blueprint (?<id>\d+): Each ore robot costs (?<ore>\d+) ore. Each clay robot costs (?<clay>\d+) ore. Each obsidian robot costs (?<obsidianOre>\d+) ore and (?<obsidianClay>\d+) clay. Each geode robot costs (?<geodeOre>\d+) ore and (?<geodeObsidian>\d+) obsidian.',
 );
@@ -25,7 +27,7 @@ int day19star2(String input) {
 }
 
 Iterable<Blueprint> _processInput(String input) =>
-    input.split('\n').map((e) => _regExp.allMatches(e).first).map(
+    input.lines.map((e) => _regExp.allMatches(e).first).map(
           (e) => Blueprint(int.parse(e.namedGroup('id')!), [
             [int.parse(e.namedGroup('ore')!), 0, 0],
             [int.parse(e.namedGroup('clay')!), 0, 0],

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 extension ToInt on String {
   int toInt({int offset = 0}) {
     if (length > 1) {
@@ -10,6 +12,10 @@ extension ToInt on String {
             : (throw Exception("don't know what to do with $this"));
     return codeUnits.first - base + offset;
   }
+}
+
+extension Lines on String {
+  List<String> get lines => const LineSplitter().convert(this);
 }
 
 extension FirstIndexWhere<T> on Iterable<T> {
@@ -26,17 +32,20 @@ extension FirstIndexWhere<T> on Iterable<T> {
 }
 
 extension ReduceUntil<E> on Iterable<E> {
-  int reduceUntil(E Function(E value, E element) combine, E targetValue) {
+  int reduceUntil(
+    E Function(E value, E element) combine,
+    bool Function(E value) test,
+  ) {
     final iterator = this.iterator;
     if (!iterator.moveNext()) {
       throw Exception('no element');
     }
-    E value = iterator.current;
+    var value = iterator.current;
     var index = 0;
     while (iterator.moveNext()) {
       value = combine(value, iterator.current);
       index++;
-      if (value == targetValue) {
+      if (test(value)) {
         return index;
       }
     }
