@@ -12,13 +12,16 @@ treb7uchet''';
     expect(day1star1(input), equals(142));
   });
   test('second star', () {
-    expect(day1star2('''
+    expect(
+      day1star2('''
 two1nine
 eightwothree
 abcone2threexyz
 xtwone3four
 4nineeightseven2
 zoneight234
-7pqrstsixteen'''), equals(281));
+7pqrstsixteen'''),
+      equals(281),
+    );
   });
 }

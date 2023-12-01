@@ -18,7 +18,7 @@ int day${paddedDay}star2(String input) => _processInput(input).length;
 ''');
 
   File('test/$year/day${paddedDay}_test.dart').writeAsStringSync('''
-import 'package:adventofcode/adventofcode2023.dart';
+import 'package:adventofcode/adventofcode$year.dart';
 import 'package:test/test.dart';
 
 void main() {
