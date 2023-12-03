@@ -9,8 +9,8 @@ Iterable<String> _processInput(String input) => input.lines;
 int day03star1(String input) {
   const invalidSymbol = '0123456789.';
   final data = <(int, int, int), int>{};
-  final lines = _processInput(input).indexed;
-  for (final (y, line) in lines) {
+  final lines = _processInput(input).toList();
+  for (final (y, line) in lines.indexed) {
     final pattern = RegExp(r'(?<number>\d+)+');
     for (final match in pattern.allMatches(line)) {
       if (int.tryParse(match.namedGroup('number') ?? '') case final number?) {
@@ -22,7 +22,7 @@ int day03star1(String input) {
                 x + direction.x >= 0 &&
                 x + direction.x < line.length &&
                 !invalidSymbol
-                    .contains(input.lines[y + direction.y][x + direction.x])) {
+                    .contains(lines[y + direction.y][x + direction.x])) {
               isValid = true;
             }
           }
