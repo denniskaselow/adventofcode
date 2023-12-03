@@ -2,7 +2,7 @@ import 'package:collection/collection.dart';
 
 import '../utils.dart';
 
-Iterable<String> _processInput(String input) => input.lines;
+Iterable<String> _processInput(String input) => input.getLines();
 
 String day5star1(String input) => _run(input, move1);
 

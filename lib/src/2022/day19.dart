@@ -27,7 +27,7 @@ int day19star2(String input) {
 }
 
 Iterable<Blueprint> _processInput(String input) =>
-    input.lines.map((e) => _regExp.allMatches(e).first).map(
+    input.getLines().map((e) => _regExp.allMatches(e).first).map(
           (e) => Blueprint(int.parse(e.namedGroup('id')!), [
             [int.parse(e.namedGroup('ore')!), 0, 0],
             [int.parse(e.namedGroup('clay')!), 0, 0],

@@ -93,7 +93,7 @@ int visitNodes(
 
 final Map<String, int> cache = {};
 
-List<String> _processInput(String input) => input.lines;
+List<String> _processInput(String input) => input.getLines();
 
 class Cavern {
   Cavern(this.id, this.flow, this.tunnels);

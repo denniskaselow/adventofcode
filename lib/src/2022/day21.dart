@@ -31,6 +31,7 @@ int _evaluateMoneky(Map<String, String> monkeys, String monkey) {
   throw Exception('unknonw operation ${input[1]}');
 }
 
-Map<String, String> _processInput(String input) => input.lines
+Map<String, String> _processInput(String input) => input
+    .getLines()
     .map((e) => e.split(': '))
     .toMap(key: (element) => element[0], value: (element) => element[1]);

@@ -12,7 +12,8 @@ final digitWords = [
   ('nine', '9'),
 ];
 
-int day1star1(String input) => input.lines
+int day1star1(String input) => input
+    .getLines()
     .map(
       (e) => e
           .split('')
@@ -22,7 +23,8 @@ int day1star1(String input) => input.lines
     .map((e) => e.first * 10 + e.last)
     .reduce(sum);
 
-int day1star2(String input) => input.lines
+int day1star2(String input) => input
+    .getLines()
     .map((e) {
       var index = 999;
       (String, String)? first;

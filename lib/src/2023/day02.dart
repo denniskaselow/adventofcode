@@ -2,7 +2,8 @@ import 'dart:math';
 
 import '../utils.dart';
 
-Iterable<Iterable<List<String>>> _processInput(String input) => input.lines
+Iterable<Iterable<List<String>>> _processInput(String input) => input
+    .getLines()
     .map((e) => e.split(RegExp('[:;]')).skip(1).map((e) => e.split(',')));
 
 int day02star1(String input) {

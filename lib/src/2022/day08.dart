@@ -6,7 +6,7 @@ int day8star1(String input) => evaluateGrid(input)[0];
 int day8star2(String input) => evaluateGrid(input)[1];
 
 List<int> evaluateGrid(String input) {
-  final lines = input.lines.toList();
+  final lines = input.getLines().toList();
   final grid = List<List<int>>.generate(
     lines.first.length,
     (x) => List<int>.generate(lines.length, (y) => int.parse(lines[y][x])),

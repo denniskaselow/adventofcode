@@ -39,7 +39,8 @@ List<List<List<int>>> _processInput(String input) => input
     .replaceAll(',', '')
     .split('\n\n')
     .map(
-      (e) => e.lines
+      (e) => e
+          .getLines()
           .skip(1)
           .map((e) => e.split(':')[1].trim().split(' '))
           .mapIndexed(

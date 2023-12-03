@@ -1,6 +1,6 @@
 import '../utils.dart';
 
-Iterable<String> _processInput(String input) => input.lines;
+Iterable<String> _processInput(String input) => input.getLines();
 
 int day4star1(String input) => _processInput(input)
     .map((e) => e.split(',').map((e) => e.split('-').map(int.parse)))

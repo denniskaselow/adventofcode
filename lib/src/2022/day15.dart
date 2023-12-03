@@ -89,7 +89,8 @@ int day15star2(String input) {
   return candidates.first.x * 4000000 + candidates.first.y;
 }
 
-Iterable<List<Point<int>>> _processInput(String input) => input.lines
+Iterable<List<Point<int>>> _processInput(String input) => input
+    .getLines()
     .map(
       (e) => e.split(':').map(
             (e) => e

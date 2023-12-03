@@ -8,7 +8,7 @@ int day12star1(String input) => travel(input, 'S');
 int day12star2(String input) => travel(input, 'a');
 
 List<List<int>> _processInput(String input) =>
-    input.lines.map((e) => e.codeUnits.toList()).toList();
+    input.getLines().map((e) => e.codeUnits.toList()).toList();
 
 int travel(String input, String startElevation) {
   final grid = _processInput(input);

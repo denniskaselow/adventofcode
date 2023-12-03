@@ -28,4 +28,5 @@ List<Indexed<int>> mix(List<Indexed<int>> numbers, int repeatMix) {
   return numbers;
 }
 
-List<int> _processInput(String input) => input.lines.map(int.parse).toList();
+List<int> _processInput(String input) =>
+    input.getLines().map(int.parse).toList();

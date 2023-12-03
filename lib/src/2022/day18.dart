@@ -72,7 +72,8 @@ int day18star2(String input) {
   return touchingWater;
 }
 
-List<Cube> _processInput(String input) => input.lines
+List<Cube> _processInput(String input) => input
+    .getLines()
     .map((e) => e.split(',').map(int.parse).toList())
     .map((e) => Cube(e[0], e[1], e[2]))
     .toList();

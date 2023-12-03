@@ -72,4 +72,4 @@ int compare(List<dynamic> left, List<dynamic> right) {
 }
 
 List<List<String>> _processInput(String input) =>
-    input.split('\n\n').map((e) => e.lines.toList()).toList();
+    input.split('\n\n').map((e) => e.getLines().toList()).toList();

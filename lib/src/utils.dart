@@ -15,7 +15,7 @@ extension ToInt on String {
 }
 
 extension Lines on String {
-  List<String> get lines => const LineSplitter().convert(this);
+  List<String> getLines() => const LineSplitter().convert(this);
 }
 
 extension FirstIndexWhere<T> on Iterable<T> {

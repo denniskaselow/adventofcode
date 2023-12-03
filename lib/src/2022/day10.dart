@@ -14,7 +14,8 @@ String day10star2(String input) => _processInput(input)
     .mapIndexed((index, element) => index % 40 == 39 ? '$element\n' : element)
     .join();
 
-Iterable<int> _processInput(String input) => input.lines
+Iterable<int> _processInput(String input) => input
+        .getLines()
         .map((e) => e.split(' '))
         .flattened
         .map((e) => int.tryParse(e) ?? 0)

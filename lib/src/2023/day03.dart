@@ -4,7 +4,7 @@ import '../utils.dart';
 
 typedef PartId = ({int line, int start, int end, int number});
 
-Iterable<String> _processInput(String input) => input.lines;
+Iterable<String> _processInput(String input) => input.getLines();
 
 int day03star1(String input) {
   const invalidSymbol = '0123456789.';

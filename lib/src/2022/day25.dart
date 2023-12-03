@@ -36,7 +36,8 @@ extension Snafu on int {
       .join();
 }
 
-List<int> _processInput(String input) => input.lines
+List<int> _processInput(String input) => input
+    .getLines()
     .map(
       (e) => e
           .split('')

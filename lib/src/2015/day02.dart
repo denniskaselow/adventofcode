@@ -5,7 +5,7 @@ import 'package:more/more.dart';
 import '../utils.dart';
 
 Iterable<Iterable<int>> _processInput(String input) =>
-    input.lines.map((line) => line.split('x').map(int.parse));
+    input.getLines().map((line) => line.split('x').map(int.parse));
 
 int day02star1(String input) {
   final processedInput = _processInput(input)
