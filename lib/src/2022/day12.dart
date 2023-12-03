@@ -44,7 +44,7 @@ int countSteps(
     if (current == end) {
       return steps;
     }
-    for (final direction in Direction.values) {
+    for (final direction in DirectionCross.values) {
       final target = Cell(current.x + direction.x, current.y + direction.y);
       if (target.x < 0 ||
           target.y < 0 ||

@@ -74,13 +74,29 @@ extension DebugIterable<T> on Iterable<T> {
 
 int sum(int a, int b) => a + b;
 
-enum Direction {
+enum DirectionCross {
   north(0, -1),
   south(0, 1),
   east(1, 0),
   west(-1, 0);
 
-  const Direction(this.x, this.y);
+  const DirectionCross(this.x, this.y);
+
+  final int x;
+  final int y;
+}
+
+enum DirectionSquare {
+  n(0, -1),
+  ne(1, -1),
+  e(1, 0),
+  se(1, 1),
+  s(0, 1),
+  sw(-1, 1),
+  w(-1, 0),
+  nw(-1, -1);
+
+  const DirectionSquare(this.x, this.y);
 
   final int x;
   final int y;

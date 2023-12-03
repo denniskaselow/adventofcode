@@ -3,7 +3,7 @@ import 'package:collection/collection.dart';
 import '../utils.dart';
 
 ({int x, int y, Set<(int, int)> visited}) _processInput(String input) =>
-    input.split('').map((e) => Direction.values['^v><'.indexOf(e)]).fold(
+    input.split('').map((e) => DirectionCross.values['^v><'.indexOf(e)]).fold(
       (x: 0, y: 0, visited: <(int, int)>{(0, 0)}),
       (previousValue, element) => (
         x: previousValue.x + element.x,
