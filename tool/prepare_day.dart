@@ -10,7 +10,7 @@ void main(List<String> args) {
   File('lib/src/$year/day$paddedDay.dart').writeAsStringSync('''
 import '../utils.dart';
 
-Iterable<String> _processInput(String input) => input.lines;
+Iterable<String> _processInput(String input) => input.getLines();
 
 int day${paddedDay}star1(String input) => _processInput(input).length;
 
