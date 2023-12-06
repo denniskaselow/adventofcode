@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import '../utils.dart';
 
 int day06star1(String input) {
@@ -22,22 +24,7 @@ int day06star2(String input) {
 }
 
 int getWins(int maxTime, int distance) {
-  var wins = maxTime + 1;
-  var won = false;
-  for (var time = 0; !won; time++) {
-    final remaining = maxTime - time;
-    if (remaining * time > distance) {
-      wins -= time;
-      won = true;
-    }
-  }
-  won = false;
-  for (var time = maxTime; !won; time--) {
-    final remaining = maxTime - time;
-    if (remaining * time > distance) {
-      wins -= maxTime - time;
-      won = true;
-    }
-  }
-  return wins;
+  final loses =
+      2 * (1 - (-maxTime + sqrt(maxTime * maxTime - 4 * distance)) / 2).floor();
+  return maxTime - loses + 1;
 }
