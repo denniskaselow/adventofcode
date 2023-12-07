@@ -13,8 +13,10 @@ int day05star1(String input) {
     var value = seed;
     for (final mapping in mappings.values) {
       value = mapping
-          .firstWhere((element) => element.containsSingle(value),
-              orElse: () => Mapping(value, value, 1))
+          .firstWhere(
+            (element) => element.containsSingle(value),
+            orElse: () => Mapping(value, value, 1),
+          )
           .convertSingle(value);
     }
     closest = min(value, closest);
@@ -40,8 +42,11 @@ int day05star2(String input) {
                   element.interesectsLeft(needsConversion.first) ||
                   element.interesectsRight(needsConversion.first) ||
                   element.containedBy(needsConversion.first),
-              orElse: () => Mapping(needsConversion.first.start,
-                  needsConversion.first.start, needsConversion.first.length),
+              orElse: () => Mapping(
+                needsConversion.first.start,
+                needsConversion.first.start,
+                needsConversion.first.length,
+              ),
             )
             .convert(needsConversion.first);
         needsConversion

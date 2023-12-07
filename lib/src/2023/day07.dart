@@ -57,7 +57,9 @@ int day07star2(String input) {
 }
 
 Iterable<(List<int>, int)> getHands(
-        Iterable<List<String>> lines, String mappingToUse) =>
+  Iterable<List<String>> lines,
+  String mappingToUse,
+) =>
     lines.map(
       (e) => (
         e.first.split('').map((e) => mappingToUse.indexOf(e[0])).toList(),
