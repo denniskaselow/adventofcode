@@ -102,6 +102,7 @@ extension PrimeFactors on int {
       for (final prime in _primes) {
         if (next % prime == 0) {
           isPrime = false;
+          break;
         }
       }
       if (isPrime) {
