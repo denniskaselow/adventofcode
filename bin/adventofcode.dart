@@ -3,8 +3,8 @@ import 'dart:io' as io;
 import 'package:adventofcode/adventofcode2023.dart';
 
 void main(List<String> arguments) {
-  run(1, day07star1);
-  run(2, day07star2);
+  run(1, day08star1);
+  run(2, day08star2);
 }
 
 void run(int star, Function(String input) solver) {

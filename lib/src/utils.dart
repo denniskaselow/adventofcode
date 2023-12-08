@@ -72,6 +72,45 @@ extension DebugIterable<T> on Iterable<T> {
   }
 }
 
+extension PrimeFactors on int {
+  static final List<int> _primes = [2, 3];
+
+  List<int> getPrimeFactors() {
+    final result = <int>[];
+    var current = this;
+    var primeIndex = 0;
+    while (current != 1) {
+      if (primeIndex >= _primes.length) {
+        _createMissingPrimes(primeIndex);
+      }
+      final currentPrime = _primes[primeIndex];
+      if (current % currentPrime == 0) {
+        result.add(currentPrime);
+        current = current ~/ currentPrime;
+      } else {
+        primeIndex++;
+      }
+    }
+    return result;
+  }
+
+  void _createMissingPrimes(int primeIndex) {
+    var next = _primes.last;
+    do {
+      next += 2;
+      var isPrime = true;
+      for (final prime in _primes) {
+        if (next % prime == 0) {
+          isPrime = false;
+        }
+      }
+      if (isPrime) {
+        _primes.add(next);
+      }
+    } while (primeIndex >= _primes.length);
+  }
+}
+
 int sum(int a, int b) => a + b;
 
 enum DirectionCross {
