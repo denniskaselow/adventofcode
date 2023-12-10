@@ -124,6 +124,18 @@ enum DirectionCross {
 
   final int x;
   final int y;
+  DirectionCross get opposite => switch (this) {
+        north => south,
+        south => north,
+        east => west,
+        west => east,
+      };
+  DirectionSquare get asSquare => switch (this) {
+        north => DirectionSquare.n,
+        south => DirectionSquare.s,
+        east => DirectionSquare.e,
+        west => DirectionSquare.w,
+      };
 }
 
 enum DirectionSquare {
@@ -140,4 +152,8 @@ enum DirectionSquare {
 
   final int x;
   final int y;
+  static Set<DirectionSquare> get north => {nw, n, ne};
+  static Set<DirectionSquare> get south => {sw, s, se};
+  static Set<DirectionSquare> get west => {nw, w, sw};
+  static Set<DirectionSquare> get east => {ne, e, se};
 }

@@ -7,3 +7,4 @@ export 'src/2023/day06.dart';
 export 'src/2023/day07.dart';
 export 'src/2023/day08.dart';
 export 'src/2023/day09.dart';
+export 'src/2023/day10.dart';
