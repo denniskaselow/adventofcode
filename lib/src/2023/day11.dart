@@ -7,9 +7,8 @@ Iterable<String> _processInput(String input) => input.getLines();
 
 int day11star1(String input) => getSolution(input, 1);
 
-int day11star2(String input) => getSolution(input, 1000000 - 1);
-int day11star2with10(String input) => getSolution(input, 10 - 1);
-int day11star2with100(String input) => getSolution(input, 100 - 1);
+int day11star2(String input, [int inflation = 1000000]) =>
+    getSolution(input, inflation - 1);
 
 int getSolution(String input, int inflation) {
   final lines = _processInput(input);
