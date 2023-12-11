@@ -8,3 +8,4 @@ export 'src/2023/day07.dart';
 export 'src/2023/day08.dart';
 export 'src/2023/day09.dart';
 export 'src/2023/day10.dart';
+export 'src/2023/day11.dart';
