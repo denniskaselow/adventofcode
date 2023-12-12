@@ -23,21 +23,14 @@ String unfold(String line) {
 }
 
 int createPermutations(String line) {
-  final [springs, config] = line.split(' ');
-  final conditions = config.split(',').map(int.parse).toList();
-  final split = springs.split('').map(
-        (e) => switch (e) {
-          '.' => (false, false),
-          '#' => (true, true),
-          '?' => (true, false),
-          final _ => throw Exception('invalid $e')
-        },
-      );
+  final [allSprings, springCondition] = line.split(' ');
+  final conditions = springCondition.split(',').map(int.parse).toList();
+  final springs = allSprings.split('');
   var springPermutations = [(group: 0, amount: 0, permutations: 1)];
   final springPermutationCounts = {(group: 0, amount: 0): 1};
-
-  for (final spring in split) {
-    if (spring.$1 == spring.$2) {
+  var springsChecked = 0;
+  for (final spring in springs) {
+    if (spring != '?') {
       springPermutations = springPermutationCounts.entries
           .map(
             (e) => (
@@ -48,7 +41,7 @@ int createPermutations(String line) {
           )
           .map(
             (e) => [
-              if (spring.$1 &&
+              if (spring == '#' &&
                   e.group < conditions.length &&
                   e.amount < conditions[e.group])
                 (
@@ -56,9 +49,9 @@ int createPermutations(String line) {
                   amount: e.amount + 1,
                   permutations: e.permutations
                 )
-              else if (!spring.$1 && e.amount == 0)
+              else if (spring == '.' && e.amount == 0)
                 e
-              else if (!spring.$1 && e.amount == conditions[e.group])
+              else if (spring == '.' && e.amount == conditions[e.group])
                 (group: e.group + 1, amount: 0, permutations: e.permutations),
             ],
           )
@@ -90,6 +83,17 @@ int createPermutations(String line) {
           .flattened
           .toList();
     }
+    springsChecked++;
+    final springsLeft = allSprings.substring(springsChecked).length;
+    springPermutations = springPermutations
+        .where(
+          (element) => element.group > conditions.length
+              ? element.amount == 0
+              : springsLeft + element.amount >=
+                  conditions.skip(element.group).sum,
+        )
+        .toList();
+
     springPermutationCounts.clear();
     for (final springPermutation in springPermutations) {
       springPermutationCounts.update(
@@ -99,15 +103,6 @@ int createPermutations(String line) {
       );
     }
   }
-
-  springPermutations = springPermutations
-      .where(
-        (element) =>
-            (element.group == conditions.length - 1 &&
-                element.amount == conditions.last) ||
-            (element.group == conditions.length && element.amount == 0),
-      )
-      .toList();
 
   return springPermutations.map((e) => e.permutations).sum;
 }
