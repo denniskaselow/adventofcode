@@ -23,8 +23,11 @@ int day12star2(String input) {
   return converted.map((e) => e.count).sum;
 }
 
-({String config, int count, List<({int index, int last})> permutations})
-    createPermutations(String line) {
+({
+  String config,
+  int count,
+  List<({int index, int last, int count})> permutations
+}) createPermutations(String line) {
   final [springs, config] = line.split(' ');
   final conditions = config.split(',').map(int.parse).toList();
   final split = springs.split('').map(
@@ -35,39 +38,51 @@ int day12star2(String input) {
           final _ => throw Exception('invalid $e')
         },
       );
-  var springPermutations = List.generate(1, (index) => (index: 0, last: 0));
+  var springPermutations =
+      List.generate(1, (index) => (index: 0, last: 0, count: 1));
+  final springPermutationCounts = {(index: 0, last: 0): 1};
 
   for (final spring in split) {
     if (spring.$1 == spring.$2) {
-      springPermutations = springPermutations
+      springPermutations = springPermutationCounts.entries
+          .map((e) => (index: e.key.index, last: e.key.last, count: e.value))
           .map(
             (e) => [
               if (spring.$1 &&
                   e.index < conditions.length &&
                   e.last < conditions[e.index])
-                (index: e.index, last: e.last + 1)
+                (index: e.index, last: e.last + 1, count: e.count)
               else if (!spring.$1 && e.last == 0)
                 e
               else if (!spring.$1 && e.last == conditions[e.index])
-                (index: e.index + 1, last: 0)
+                (index: e.index + 1, last: 0, count: e.count),
             ],
           )
           .flattened
           .toList();
     } else {
-      springPermutations = springPermutations
+      springPermutations = springPermutationCounts.entries
+          .map((e) => (index: e.key.index, last: e.key.last, count: e.value))
           .map(
             (e) => [
               if (e.index < conditions.length && e.last < conditions[e.index])
-                (index: e.index, last: e.last + 1),
+                (index: e.index, last: e.last + 1, count: e.count),
               if (e.last == 0)
                 e
               else if (e.last == conditions[e.index])
-                (index: e.index + 1, last: 0)
+                (index: e.index + 1, last: 0, count: e.count),
             ],
           )
           .flattened
           .toList();
+    }
+    springPermutationCounts.clear();
+    for (final springPermutation in springPermutations) {
+      springPermutationCounts.update(
+        (index: springPermutation.index, last: springPermutation.last),
+        (value) => value + springPermutation.count,
+        ifAbsent: () => springPermutation.count,
+      );
     }
   }
 
@@ -80,7 +95,7 @@ int day12star2(String input) {
       )
       .toList();
 
-  final count = springPermutations.length;
+  final count = springPermutations.map((e) => e.count).sum;
 
   return (permutations: springPermutations, config: config, count: count);
 }
