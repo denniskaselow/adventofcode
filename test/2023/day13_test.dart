@@ -41,6 +41,6 @@ void main() {
     expect(day13star1(input3), equals(4));
   });
   test('second star', () {
-    expect(day13star2(input), equals(0));
+    expect(day13star2(input), equals(400));
   });
 }

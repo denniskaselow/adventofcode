@@ -4,7 +4,11 @@ typedef Mirror = ({int length, int index, bool horizontal});
 
 Iterable<String> _processInput(String input) => input.getLines();
 
-int day13star1(String input) {
+int day13star1(String input) => _getSolution(input, 0);
+
+int day13star2(String input) => _getSolution(input, 1);
+
+int _getSolution(String input, int smudges) {
   final allLines = _processInput(input);
   final allFields = allLines.fold(
     <List<String>>[[]],
@@ -20,14 +24,16 @@ int day13star1(String input) {
 
     mirrors.add(
       tmpMirrors.entries
-          .where((element) => element.value == field.length)
+          .where((element) => element.value == field.length - smudges)
           .followedBy(
-            tmpMirrorsVert.entries
-                .where((element) => element.value == rotatedField.length),
+            tmpMirrorsVert.entries.where(
+              (element) => element.value == rotatedField.length - smudges,
+            ),
           )
           .fold(
-        (index: 0, length: 0, horizontal: true),
-        (previousValue, element) => previousValue.length < element.key.length
+        // the earliest index is important, not the longest reflection...
+        (index: 999, length: 0, horizontal: true),
+        (previousValue, element) => previousValue.index > element.key.index
             ? element.key
             : previousValue,
       ),
@@ -96,5 +102,3 @@ Map<Mirror, int> getPossibleMirrors(
   }
   return tmpMirrors;
 }
-
-int day13star2(String input) => _processInput(input).length;
