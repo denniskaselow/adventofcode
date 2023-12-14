@@ -36,7 +36,7 @@ void main() {
 
   File('lib/adventofcode$year.dart').writeAsStringSync(
     '''
-export 'src/$year/day$paddedDay.dart';
+export 'src/$year/day$paddedDay.dart' show day${paddedDay}star1, day${paddedDay}star2;
 ''',
     mode: FileMode.append,
   );
