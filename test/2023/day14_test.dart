@@ -18,6 +18,6 @@ O.#..O.#.#
     expect(day14star1(input), equals(136));
   });
   test('second star', () {
-    expect(day14star2(input), equals(0));
+    expect(day14star2(input), equals(64));
   });
 }
