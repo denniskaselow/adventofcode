@@ -26,83 +26,50 @@ int createPermutations(String line) {
   final [allSprings, springCondition] = line.split(' ');
   final conditions = springCondition.split(',').map(int.parse).toList();
   final springs = allSprings.split('');
-  var springPermutations = [(group: 0, amount: 0, permutations: 1)];
-  final springPermutationCounts = {(group: 0, amount: 0): 1};
-  var springsChecked = 0;
+  var state = {(group: 0, amount: 0): 1};
+  var nextState = <({int group, int amount}), int>{};
+  var brokenSpringsLeft = springs.where((element) => element != '.').length;
+  final minRequiredBrokenSpringsLeft = [];
+  for (var i = 0; i <= conditions.length; i++) {
+    minRequiredBrokenSpringsLeft.add(conditions.skip(i).sum);
+  }
   for (final spring in springs) {
-    if (spring != '?') {
-      springPermutations = springPermutationCounts.entries
-          .map(
-            (e) => (
-              group: e.key.group,
-              amount: e.key.amount,
-              permutations: e.value
-            ),
-          )
-          .map(
-            (e) => [
-              if (spring == '#' &&
-                  e.group < conditions.length &&
-                  e.amount < conditions[e.group])
-                (
-                  group: e.group,
-                  amount: e.amount + 1,
-                  permutations: e.permutations
-                )
-              else if (spring == '.' && e.amount == 0)
-                e
-              else if (spring == '.' && e.amount == conditions[e.group])
-                (group: e.group + 1, amount: 0, permutations: e.permutations),
-            ],
-          )
-          .flattened
-          .toList();
-    } else {
-      springPermutations = springPermutationCounts.entries
-          .map(
-            (e) => (
-              group: e.key.group,
-              amount: e.key.amount,
-              permutations: e.value
-            ),
-          )
-          .map(
-            (e) => [
-              if (e.group < conditions.length && e.amount < conditions[e.group])
-                (
-                  group: e.group,
-                  amount: e.amount + 1,
-                  permutations: e.permutations
-                ),
-              if (e.amount == 0)
-                e
-              else if (e.amount == conditions[e.group])
-                (group: e.group + 1, amount: 0, permutations: e.permutations),
-            ],
-          )
-          .flattened
-          .toList();
+    if (spring != '.') {
+      brokenSpringsLeft--;
     }
-    springsChecked++;
-    final springsLeft = allSprings.substring(springsChecked).length;
-    springPermutations = springPermutations
-        .where(
-          (element) => element.group > conditions.length
-              ? element.amount == 0
-              : springsLeft + element.amount >=
-                  conditions.skip(element.group).sum,
-        )
-        .toList();
+    for (final MapEntry(key: (:group, :amount), value: permutations)
+        in state.entries) {
+      if (spring == '#' || spring == '?') {
+        if (group < conditions.length && amount < conditions[group]) {
+          nextState[(group: group, amount: amount + 1)] = permutations;
+        }
+      }
+      if (spring == '.' || spring == '?') {
+        if (amount == 0) {
+          nextState.update(
+            (group: group, amount: 0),
+            (value) => value + permutations,
+            ifAbsent: () => permutations,
+          );
+        } else if (amount == conditions[group]) {
+          nextState.update(
+            (group: group + 1, amount: 0),
+            (value) => value + permutations,
+            ifAbsent: () => permutations,
+          );
+        }
+      }
+    }
 
-    springPermutationCounts.clear();
-    for (final springPermutation in springPermutations) {
-      springPermutationCounts.update(
-        (group: springPermutation.group, amount: springPermutation.amount),
-        (value) => value + springPermutation.permutations,
-        ifAbsent: () => springPermutation.permutations,
-      );
-    }
+    nextState.removeWhere(
+      (key, value) =>
+          brokenSpringsLeft + key.amount <
+          minRequiredBrokenSpringsLeft[key.group],
+    );
+
+    state.clear();
+    (state, nextState) = (nextState, state);
   }
 
-  return springPermutations.map((e) => e.permutations).sum;
+  return state.values.sum;
 }
