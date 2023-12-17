@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:math';
 
 import 'package:collection/collection.dart';
@@ -7,7 +8,19 @@ import '../utils.dart';
 typedef Coords = ({int x, int y});
 typedef Cell = ({int x, int y, int heatloss});
 typedef Grid = Map<Coords, int>;
-typedef Move = ({int x, int y, int straight, DirectionCross direction});
+typedef CellKey = ({
+  int x,
+  int y,
+  int straight,
+  DirectionCross direction,
+});
+typedef Move = ({
+  int x,
+  int y,
+  int straight,
+  DirectionCross direction,
+  int heatloss,
+});
 
 var maxX = 0;
 var maxY = 0;
@@ -31,28 +44,91 @@ int day17star1(String input) {
         return previousValue;
       });
 
-  final visited = {
-    for (var x = 0; x < maxX; x++)
-      for (var y = 0; y < maxY; y++)
-        if (x == y)
-          (x: x, y: y, direction: DirectionCross.south, straight: 0):
-              x * 9 + y * 9,
-  };
+  final visited = <CellKey, int>{};
+  final open = SplayTreeSet<Move>((key1, key2) {
+    final maxHeatloss1 =
+        key1.heatloss + ((maxX - key1.x) + (maxY - key1.y)) * 9 * 1.5;
+    final maxHeatloss2 =
+        key2.heatloss + ((maxX - key2.x) + (maxY - key2.y)) * 9 * 1.5;
+    var result = maxHeatloss1.compareTo(maxHeatloss2);
+    if (result == 0) {
+      result = key1.heatloss.compareTo(key2.heatloss);
+    }
+    if (result == 0) {
+      result = key1.straight.compareTo(key2.straight);
+    }
+    if (result == 0) {
+      result = key1.x.compareTo(key2.x);
+    }
+    if (result == 0) {
+      result = key1.y.compareTo(key2.y);
+    }
+    if (result == 0) {
+      result = key1.direction.index.compareTo(key2.direction.index);
+    }
+    return result;
+  })
+    ..addAll([
+      (x: 0, y: 0, direction: DirectionCross.east, straight: -1, heatloss: 0),
+    ]);
+  final moves = <Move, Move>{};
 
-  traverseGrid(
-    grid,
-    visited,
-    (x: 0, y: 0, direction: DirectionCross.east, straight: 0),
-    -grid[(x: 0, y: 0)]!,
-  );
-  traverseGrid(
-    grid,
-    visited,
-    (x: 0, y: 0, direction: DirectionCross.east, straight: 0),
-    -grid[(x: 0, y: 0)]!,
-  );
+  var count = 0;
+  var maxHeatloss = ((maxX + maxY) * 9 * 1.5).toInt();
 
-  return visited.entries
+  while (open.isNotEmpty) {
+    count++;
+    if (count % 1000000 == 0) {
+      print('--');
+      // print(open.join('\n'));
+      print(open.length);
+    }
+    final current = open.first;
+    open.remove(current);
+    // print('visiting $current');
+    final currentHeatloss = current.heatloss;
+    final currentPos = (
+      x: current.x,
+      y: current.y,
+      direction: current.direction,
+      straight: current.straight
+    );
+    if (visited.containsKey(currentPos) &&
+        visited[currentPos]! < currentHeatloss) {
+      continue;
+    }
+    if (current.x == maxX - 1 && current.y == maxY - 1) {
+      print('target reached: ${current.heatloss}');
+      maxHeatloss = min(maxHeatloss, current.heatloss);
+    }
+
+    // print('heatloss: $currentHeatloss');
+    visited[currentPos] = currentHeatloss;
+    for (final direction in DirectionCross.values) {
+      final nextX = current.x + direction.x;
+      final nextY = current.y + direction.y;
+      if (nextX >= 0 && nextY >= 0 && nextX < maxX && nextY < maxY) {
+        final nextMove = (
+          direction: direction,
+          x: nextX,
+          y: nextY,
+          straight: direction == current.direction ? current.straight + 1 : 0,
+          heatloss: currentHeatloss + grid[(x: nextX, y: nextY)]!,
+        );
+        if (nextMove.straight < 3 && direction != current.direction.opposite) {
+          if (nextMove.heatloss +
+                  (maxX - nextMove.x - 1) +
+                  (maxY - nextMove.y - 1) <
+              maxHeatloss) {
+            moves[nextMove] = current;
+            open.add(nextMove);
+          }
+        }
+      }
+    }
+  }
+
+  final result = visited.entries
       .where(
         (element) => element.key.x == maxX - 1 && element.key.y == maxY - 1,
       )
@@ -60,53 +136,27 @@ int day17star1(String input) {
         maxX * 9 + maxY * 9,
         (previousValue, element) => min(previousValue, element.value),
       );
-}
-
-void traverseGrid(
-  Grid grid,
-  Map<Move, int> moves,
-  Move current,
-  int heatloss,
-) {
-  if (current.x < 0 ||
-      current.y < 0 ||
-      current.x == maxX ||
-      current.y == maxY) {
-    return;
-  }
-  final currentHeatloss = heatloss + grid[(x: current.x, y: current.y)]!;
-  final currentPos = (x: current.x, y: current.y);
-  if (moves.containsKey(current) && moves[current]! < currentHeatloss ||
-      moves[(
-            x: max(currentPos.x, currentPos.y),
-            y: max(currentPos.x, currentPos.y),
-            direction: DirectionCross.south,
-            straight: 0
-          )]! <
-          currentHeatloss) {
-    // print(
-    //   'aborting lowerExists $currentPos $currentHeatloss ${moves[currentPos]!}',
-    // );
-    return;
-  }
-
-  // if (current.x == maxX - 1 && current.y == maxY - 1) {
-  //   print(current);
-  //   print(currentHeatloss);
-  // }
-
-  moves[current] = currentHeatloss;
-  for (final direction in DirectionCross.values) {
-    final nextMove = (
-      direction: direction,
-      x: current.x + direction.x,
-      y: current.y + direction.y,
-      straight: direction == current.direction ? current.straight + 1 : 0
-    );
-    if (nextMove.straight < 3 && direction != current.direction.opposite) {
-      traverseGrid(grid, moves, nextMove, currentHeatloss);
+  final pathMap = lines.toList();
+  for (final MapEntry(key: current, value: previous) in moves.entries.where(
+    (element) =>
+        element.key.x == maxX - 1 &&
+        element.key.y == maxY - 1 &&
+        element.key.heatloss == result,
+  )) {
+    pathMap[current.y] = pathMap[current.y]
+        .replaceRange(current.x, current.x + 1, current.direction.ui);
+    Move source = previous;
+    while (moves.containsKey(source)) {
+      pathMap[source.y] = pathMap[source.y]
+          .replaceRange(source.x, source.x + 1, source.direction.ui);
+      source = moves[source]!;
     }
+    pathMap[source.y] = pathMap[source.y]
+        .replaceRange(source.x, source.x + 1, source.direction.ui);
+    print(current);
+    print(pathMap.join('\n'));
   }
+  return result;
 }
 
 int day17star2(String input) => _processInput(input).length;

@@ -115,15 +115,16 @@ extension PrimeFactors on int {
 int sum(int a, int b) => a + b;
 
 enum DirectionCross {
-  north(0, -1),
-  south(0, 1),
-  east(1, 0),
-  west(-1, 0);
+  north(0, -1, '^'),
+  south(0, 1, 'v'),
+  east(1, 0, '>'),
+  west(-1, 0, '<');
 
-  const DirectionCross(this.x, this.y);
+  const DirectionCross(this.x, this.y, this.ui);
 
   final int x;
   final int y;
+  final String ui;
   DirectionCross get opposite => switch (this) {
         north => south,
         south => north,
