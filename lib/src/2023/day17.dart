@@ -66,7 +66,6 @@ int getSolution(String input, int moveMin, int moveMax) {
       (x: 0, y: 0, direction: DirectionCross.east, heatloss: 0),
       (x: 0, y: 0, direction: DirectionCross.south, heatloss: 0),
     ]);
-  final moves = <Move, Move>{};
 
   var maxHeatloss = ((maxX + maxY) * 9 * 1.5).toInt();
 
@@ -112,7 +111,6 @@ int getSolution(String input, int moveMin, int moveMax) {
               y: nextY,
               heatloss: currentHeatloss + heatloss,
             );
-            moves[nextMove] = current;
             open.add(nextMove);
           }
         }
