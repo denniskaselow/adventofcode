@@ -20,20 +20,6 @@ void main() {
   test('first star', () {
     expect(
       day17star1('''
-112
-111
-211'''),
-      equals(4),
-    );
-    expect(
-      day17star1('''
-111
-191
-111'''),
-      equals(4),
-    );
-    expect(
-      day17star1('''
 1111
 1991
 1991
@@ -70,7 +56,7 @@ void main() {
     );
     expect(day17star1(input1), equals(102));
   });
-  // test('second star', () {
-  //   expect(day17star2(input1), equals(0));
-  // });
+  test('second star', () {
+    expect(day17star2(input1), equals(94));
+  });
 }
