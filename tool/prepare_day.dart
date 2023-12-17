@@ -12,7 +12,17 @@ import '../utils.dart';
 
 Iterable<String> _processInput(String input) => input.getLines();
 
-int day${paddedDay}star1(String input) => _processInput(input).length;
+int day${paddedDay}star1(String input) {
+  final result = _processInput(input).map((line) {
+    final converted = line.split('').map((cell) {
+      return cell;
+    });
+    return converted;
+  });
+
+  print(result.join('\n'));
+  return result.length;
+}
 
 int day${paddedDay}star2(String input) => _processInput(input).length;
 ''');
