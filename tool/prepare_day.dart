@@ -20,7 +20,7 @@ int day${paddedDay}star1(String input) {
     return converted;
   });
 
-  print(result.join('\n'));
+  print(result.join('\\n'));
   return result.length;
 }
 
