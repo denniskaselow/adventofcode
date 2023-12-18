@@ -1,5 +1,8 @@
 import 'dart:math';
 
+import 'package:collection/collection.dart';
+import 'package:more/more.dart';
+
 import '../utils.dart';
 
 typedef Grid = Map<({int x, int y}), String>;
@@ -70,8 +73,13 @@ int day18star1(String input) {
   return filledGrid.length;
 }
 
+typedef Coords = ({int x, int y});
+
 int day18star2(String input) {
-  final instructions = _processInput(input).map((line) {
+  var x = 0;
+  var y = 0;
+  var border = 0;
+  final coordinates = _processInput(input).map((line) {
     final converted =
         RegExp(r'\(#(?<count>[a-f0-9]{5})(?<direction>[a-f0-9]{1})\)')
             .allMatches(line);
@@ -86,9 +94,22 @@ int day18star2(String input) {
       },
       count: int.parse(match.namedGroup('count')!, radix: 16)
     );
-  });
+  }).map((instruction) {
+    x += instruction.direction.x * instruction.count;
+    y += instruction.direction.y * instruction.count;
+    border += instruction.count;
+    return (x: x, y: y);
+  }).toList();
 
-  print(instructions.join('\n'));
+  // https://en.wikipedia.org/wiki/Shoelace_formula
+  final internal = coordinates.window(2).map((e) {
+        final first = e.first;
+        final second = e.last;
+        return first.x * second.y - first.y * second.x;
+      }).sum ~/
+      2;
 
-  return instructions.length;
+  // https://en.wikipedia.org/wiki/Pick%27s_theorem
+  // no idea why I need to add 1 instead of subtract 1
+  return internal + border ~/ 2 + 1;
 }
