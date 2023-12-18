@@ -11,7 +11,7 @@ typedef Grid = Map<Coords, int>;
 typedef CellKey = ({
   int x,
   int y,
-  DirectionCross direction,
+  String orientation,
 });
 typedef Move = ({
   int x,
@@ -76,7 +76,7 @@ int getSolution(String input, int moveMin, int moveMax) {
     final currentPos = (
       x: current.x,
       y: current.y,
-      direction: current.direction,
+      orientation: current.direction.orientation,
     );
     if (visited.containsKey(currentPos) &&
         visited[currentPos]! < currentHeatloss) {

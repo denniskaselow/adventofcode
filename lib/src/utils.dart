@@ -137,6 +137,10 @@ enum DirectionCross {
         east => DirectionSquare.e,
         west => DirectionSquare.w,
       };
+  String get orientation => switch (this) {
+        north || south => '|',
+        east || west => '-',
+      };
 }
 
 enum DirectionSquare {
