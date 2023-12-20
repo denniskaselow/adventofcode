@@ -19,7 +19,4 @@ broadcaster -> a
     expect(day20star1(input1), equals(32000000));
     expect(day20star1(input2), equals(11687500));
   });
-  test('second star', () {
-    expect(day20star2(input1), equals(0));
-  });
 }

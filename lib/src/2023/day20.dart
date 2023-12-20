@@ -12,12 +12,15 @@ enum SignalType {
 
 sealed class Module {
   Module(this.targets);
+
   final List<String> targets;
+
   SignalType? onSignal(Signal signal) => signal.type;
 }
 
 class FlipFlop extends Module {
   FlipFlop(super.targets);
+
   bool on = false;
 
   @override
@@ -32,6 +35,7 @@ class FlipFlop extends Module {
 
 class Conjunction extends Module {
   Conjunction(super.targets);
+
   Map<String, SignalType> memory = {};
 
   @override
@@ -78,6 +82,53 @@ int day20star1(String input) {
   return high * low;
 }
 
+int day20star2(String input) {
+  final modules = getModules(input);
+
+  var count = 0;
+
+  final rxSource =
+      modules.values.firstWhere((element) => element.targets.contains('rx'));
+
+  if (rxSource case Conjunction(:final memory)) {
+    final requiredHighs =
+        memory.keys.fold(<String, int>{}, (previousValue, element) {
+      previousValue[element] = 0;
+      return previousValue;
+    });
+
+    while (true) {
+      count++;
+      final open = <Signal>[
+        (source: 'button', target: 'broadcaster', type: SignalType.low),
+      ];
+      while (open.isNotEmpty) {
+        final signal = open.removeAt(0);
+
+        if (modules[signal.target] case final receiver?) {
+          final type = receiver.onSignal(signal);
+          for (final target in receiver.targets) {
+            if (type != null) {
+              open.add((type: type, source: signal.target, target: target));
+            }
+          }
+        }
+        for (final moduleName in requiredHighs.keys) {
+          if (memory[moduleName] == SignalType.high &&
+              requiredHighs[moduleName] == 0) {
+            requiredHighs[moduleName] = count;
+          }
+        }
+      }
+      if (requiredHighs.values.every((element) => element != 0)) {
+        return requiredHighs.values
+            .fold(1, (previousValue, element) => previousValue * element);
+      }
+    }
+  }
+  return 0;
+}
+
 Map<String, Module> getModules(String input) {
   final modules = input.getLines().fold(Modules(), (prev, line) {
     final [source, targets] = line.split(' -> ');
@@ -107,5 +158,3 @@ Map<String, Module> getModules(String input) {
   }
   return modules;
 }
-
-int day20star2(String input) => 0;
