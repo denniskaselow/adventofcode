@@ -18,3 +18,4 @@ export 'src/2023/day17.dart' show day17star1, day17star2;
 export 'src/2023/day18.dart' show day18star1, day18star2;
 export 'src/2023/day19.dart' show day19star1, day19star2;
 export 'src/2023/day20.dart' show day20star1, day20star2;
+export 'src/2023/day21.dart' show day21star1, day21star2;
