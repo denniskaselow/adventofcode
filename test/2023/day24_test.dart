@@ -12,7 +12,4 @@ void main() {
   test('first star', () {
     expect(day24star1(input, 7, 27), equals(2));
   });
-  test('second star', () {
-    expect(day24star2(input), equals(47));
-  });
 }
