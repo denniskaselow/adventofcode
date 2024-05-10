@@ -5,12 +5,18 @@ import '../utils.dart';
 Iterable<String> _processInput(String input) => input.getLines();
 
 int day12star1(String input) =>
-    _processInput(input).map(createPermutations).sum;
+    _processInput(input).map(part1).map(createPermutations).sum;
 
 int day12star2(String input) =>
-    _processInput(input).map(unfold).map(createPermutations).sum;
+    _processInput(input).map(part2).map(createPermutations).sum;
 
-String unfold(String line) {
+(String, List<int>) part1(String line) {
+  final [springs, config] = line.split(' ');
+  final springConfig = config.split(',').map(int.parse).toList();
+  return (springs, springConfig);
+}
+
+(String, List<int>) part2(String line) {
   final [springs, config] = line.split(' ');
   final springConfig = config.split(',').map(int.parse);
   final modSprings = <String>[];
@@ -19,12 +25,11 @@ String unfold(String line) {
     modSprings.add(springs);
     modConfig.addAll(springConfig);
   }
-  return '${modSprings.join('?')} ${modConfig.join(',')}';
+  return (modSprings.join('?'), modConfig);
 }
 
-int createPermutations(String line) {
-  final [allSprings, springCondition] = line.split(' ');
-  final conditions = springCondition.split(',').map(int.parse).toList();
+int createPermutations((String, List<int>) line) {
+  final (allSprings, conditions) = line;
   final springs = allSprings.split('');
   var state = {(group: 0, amount: 0): 1};
   var nextState = <({int group, int amount}), int>{};
