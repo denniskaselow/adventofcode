@@ -33,9 +33,9 @@ int day12star2(String input) =>
 int createPermutations((String, List<int>) line) {
   final (allSprings, conditions) = line;
   final springs = allSprings.split('');
-  var state = HashMap<({int group, int amount}), int>();
-  state[(group: 0, amount: 0)] = 1;
-  var nextState = HashMap<({int group, int amount}), int>();
+  var state = HashMap<Permutation, int>();
+  state[const Permutation(group: 0, amount: 0)] = 1;
+  var nextState = HashMap<Permutation, int>();
   var brokenSpringsLeft = springs.where((element) => element != '.').length;
   final minRequiredBrokenSpringsLeft = [];
   for (var i = 0; i <= conditions.length; i++) {
@@ -45,23 +45,24 @@ int createPermutations((String, List<int>) line) {
     if (spring != '.') {
       brokenSpringsLeft--;
     }
-    for (final MapEntry(key: (:group, :amount), value: permutations)
+    for (final MapEntry(key: Permutation(:group, :amount), value: permutations)
         in state.entries) {
       if (spring == '#' || spring == '?') {
         if (group < conditions.length && amount < conditions[group]) {
-          nextState[(group: group, amount: amount + 1)] = permutations;
+          nextState[Permutation(group: group, amount: amount + 1)] =
+              permutations;
         }
       }
       if (spring == '.' || spring == '?') {
         if (amount == 0) {
           nextState.update(
-            (group: group, amount: 0),
+            Permutation(group: group, amount: 0),
             (value) => value + permutations,
             ifAbsent: () => permutations,
           );
         } else if (amount == conditions[group]) {
           nextState.update(
-            (group: group + 1, amount: 0),
+            Permutation(group: group + 1, amount: 0),
             (value) => value + permutations,
             ifAbsent: () => permutations,
           );
@@ -80,4 +81,21 @@ int createPermutations((String, List<int>) line) {
   }
 
   return state.values.sum;
+}
+
+class Permutation {
+  const Permutation({required this.group, required this.amount});
+  final int group;
+  final int amount;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Permutation &&
+          runtimeType == other.runtimeType &&
+          group == other.group &&
+          amount == other.amount;
+
+  @override
+  int get hashCode => group ^ amount;
 }
