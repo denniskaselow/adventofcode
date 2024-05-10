@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:collection/collection.dart';
 
 import '../utils.dart';
@@ -31,8 +33,9 @@ int day12star2(String input) =>
 int createPermutations((String, List<int>) line) {
   final (allSprings, conditions) = line;
   final springs = allSprings.split('');
-  var state = {(group: 0, amount: 0): 1};
-  var nextState = <({int group, int amount}), int>{};
+  var state = HashMap<({int group, int amount}), int>();
+  state[(group: 0, amount: 0)] = 1;
+  var nextState = HashMap<({int group, int amount}), int>();
   var brokenSpringsLeft = springs.where((element) => element != '.').length;
   final minRequiredBrokenSpringsLeft = [];
   for (var i = 0; i <= conditions.length; i++) {
