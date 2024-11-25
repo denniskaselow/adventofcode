@@ -1,10 +1,11 @@
 import 'package:adventofcode/adventofcode2023.dart';
+import 'package:adventofcode/src/utils.dart';
 import 'package:test/test.dart';
 
 void main() {
-  const input = '''
+  const input = Input('''
 Time:      7  15   30
-Distance:  9  40  200''';
+Distance:  9  40  200''');
 
   test('first star', () {
     expect(day06star1(input), equals(288));

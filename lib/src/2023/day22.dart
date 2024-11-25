@@ -39,7 +39,7 @@ class Brick {
   }
 }
 
-int day22star1(String input) {
+int day22star1(Input input) {
   final bricks = getBricks(input);
 
   final bricksByEndZ = <int, List<Brick>>{};
@@ -68,7 +68,7 @@ int day22star1(String input) {
   return result;
 }
 
-int day22star2(String input) {
+int day22star2(Input input) {
   final bricks = getBricks(input);
 
   final bricksByEndZ = <int, List<Brick>>{};
@@ -104,7 +104,7 @@ int day22star2(String input) {
   return totalSupporting.values.map((e) => e.length).sum;
 }
 
-List<Brick> getBricks(String input) {
+List<Brick> getBricks(Input input) {
   final bricks = input.getLines().indexed.map((line) {
     final [start, end] = line.$2.split('~').map((cell) {
       final [x, y, z] = cell.split(',').map(int.parse).toList();

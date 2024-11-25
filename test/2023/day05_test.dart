@@ -1,8 +1,9 @@
 import 'package:adventofcode/adventofcode2023.dart';
+import 'package:adventofcode/src/utils.dart';
 import 'package:test/test.dart';
 
 void main() {
-  const input = '''
+  const input = Input('''
 seeds: 79 14 55 13
 
 seed-to-soil map:
@@ -35,7 +36,7 @@ temperature-to-humidity map:
 
 humidity-to-location map:
 60 56 37
-56 93 4''';
+56 93 4''');
 
   test('first star', () {
     expect(day05star1(input), equals(35));

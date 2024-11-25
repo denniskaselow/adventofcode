@@ -2,12 +2,12 @@ import 'package:more/more.dart';
 
 import '../utils.dart';
 
-int day21star1(String input) {
+int day21star1(Input input) {
   final monkeys = _processInput(input);
   return _evaluateMoneky(monkeys, 'root');
 }
 
-int day21star2(String input) => _processInput(input).length;
+int day21star2(Input input) => _processInput(input).length;
 
 int _evaluateMoneky(Map<String, String> monkeys, String monkey) {
   final input = monkeys[monkey]!.split(' ');
@@ -31,7 +31,7 @@ int _evaluateMoneky(Map<String, String> monkeys, String monkey) {
   throw Exception('unknonw operation ${input[1]}');
 }
 
-Map<String, String> _processInput(String input) => input
+Map<String, String> _processInput(Input input) => input
     .getLines()
     .map((e) => e.split(': '))
     .toMap(key: (element) => element[0], value: (element) => element[1]);

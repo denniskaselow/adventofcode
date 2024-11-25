@@ -12,7 +12,7 @@ final digitWords = [
   ('nine', '9'),
 ];
 
-int day1star1(String input) => input
+int day1star1(Input input) => input
     .getLines()
     .map(
       (e) => e
@@ -23,7 +23,7 @@ int day1star1(String input) => input
     .map((e) => e.first * 10 + e.last)
     .reduce(sum);
 
-int day1star2(String input) => input
+int day1star2(Input input) => input
     .getLines()
     .map((e) {
       var index = 999;
@@ -45,10 +45,10 @@ int day1star2(String input) => input
         }
       }
       if (first != null) {
-        e = e.replaceFirst(first.$1, '_${first.$2}_${first.$1}');
+        e = e.replaceFirst(first.$1, '_${first.$2}_${first.$1}') as Input;
       }
       if (last != null) {
-        e = e.replaceFirst(last.$1, '${last.$1}_${last.$2}_', index);
+        e = e.replaceFirst(last.$1, '${last.$1}_${last.$2}_', index) as Input;
       }
       return e;
     })

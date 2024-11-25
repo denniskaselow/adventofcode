@@ -7,9 +7,9 @@ import '../utils.dart';
 
 typedef Grid = Map<({int x, int y}), String>;
 
-Iterable<String> _processInput(String input) => input.getLines();
+Iterable<String> _processInput(Input input) => input.getLines();
 
-int day18star1(String input) {
+int day18star1(Input input) {
   final instructions = _processInput(input).map((line) {
     final converted =
         RegExp(r'^(?<direction>[RLUD]) (?<count>\d+)').allMatches(line);
@@ -75,7 +75,7 @@ int day18star1(String input) {
 
 typedef Coords = ({int x, int y});
 
-int day18star2(String input) {
+int day18star2(Input input) {
   var x = 0;
   var y = 0;
   var border = 0;

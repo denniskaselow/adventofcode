@@ -4,12 +4,12 @@ import 'package:collection/collection.dart';
 
 import '../utils.dart';
 
-Iterable<String> _processInput(String input) => input.getLines();
+Iterable<String> _processInput(Input input) => input.getLines();
 
-int day12star1(String input) =>
+int day12star1(Input input) =>
     _processInput(input).map(part1).map(createPermutations).sum;
 
-int day12star2(String input) =>
+int day12star2(Input input) =>
     _processInput(input).map(part2).map(createPermutations).sum;
 
 (String, List<int>) part1(String line) {
@@ -37,7 +37,7 @@ int createPermutations((String, List<int>) line) {
   state[const Permutation(group: 0, amount: 0)] = 1;
   var nextState = HashMap<Permutation, int>();
   var brokenSpringsLeft = springs.where((element) => element != '.').length;
-  final minRequiredBrokenSpringsLeft = [];
+  final minRequiredBrokenSpringsLeft = <int>[];
   for (var i = 0; i <= conditions.length; i++) {
     minRequiredBrokenSpringsLeft.add(conditions.skip(i).sum);
   }

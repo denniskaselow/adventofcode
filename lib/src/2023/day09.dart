@@ -2,10 +2,10 @@ import 'package:collection/collection.dart';
 
 import '../utils.dart';
 
-int day09star1(String input) => getPrediction(input);
-int day09star2(String input) => getPrediction(input, part1: false);
+int day09star1(Input input) => getPrediction(input);
+int day09star2(Input input) => getPrediction(input, part1: false);
 
-int getPrediction(String input, {bool part1 = true}) =>
+int getPrediction(Input input, {bool part1 = true}) =>
     input.getLines().map((e) {
       final data = [e.split(' ').map(int.parse).toList()];
       var currentRow = data[0];

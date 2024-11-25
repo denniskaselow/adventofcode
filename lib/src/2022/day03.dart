@@ -2,9 +2,9 @@ import 'package:collection/collection.dart';
 
 import '../utils.dart';
 
-Iterable<String> _processInput(String input) => input.getLines();
+Iterable<String> _processInput(Input input) => input.getLines();
 
-int day3star1(String input) => _processInput(input)
+int day3star1(Input input) => _processInput(input)
     .map(
       (e) => [e.substring(0, e.length ~/ 2), e.substring(e.length ~/ 2)]
           .map((e) => e.split('').toSet()),
@@ -17,7 +17,7 @@ int day3star1(String input) => _processInput(input)
     )
     .sum;
 
-int day3star2(String input) {
+int day3star2(Input input) {
   final elves = _processInput(input).toList();
   final group = List.generate(
     elves.length ~/ 3,

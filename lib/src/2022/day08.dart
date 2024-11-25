@@ -2,10 +2,10 @@ import 'dart:math';
 
 import '../utils.dart';
 
-int day8star1(String input) => evaluateGrid(input)[0];
-int day8star2(String input) => evaluateGrid(input)[1];
+int day8star1(Input input) => evaluateGrid(input)[0];
+int day8star2(Input input) => evaluateGrid(input)[1];
 
-List<int> evaluateGrid(String input) {
+List<int> evaluateGrid(Input input) {
   final lines = input.getLines().toList();
   final grid = List<List<int>>.generate(
     lines.first.length,

@@ -4,13 +4,11 @@ import 'package:collection/collection.dart';
 
 import '../utils.dart';
 
-int day15star1(String input) {
-  const yToCheck = 2000000;
-  return getLineCoverage(_processInput(input), yToCheck)
-      .line
-      .map((e) => e.width)
-      .sum;
-}
+int day15star1(Input input, {int yToCheck = 2000000}) =>
+    getLineCoverage(_processInput(input), yToCheck)
+        .line
+        .map((e) => e.width)
+        .sum;
 
 LineCoverage getLineCoverage(
   Iterable<List<Point<int>>> processInput,
@@ -29,7 +27,7 @@ LineCoverage getLineCoverage(
       return previousValue;
     });
 
-int day15star2(String input) {
+int day15star2(Input input) {
   final sbPairs = _processInput(input);
   const size = 4000000;
   final linesNwSe = <Line>[];
@@ -89,7 +87,7 @@ int day15star2(String input) {
   return candidates.first.x * 4000000 + candidates.first.y;
 }
 
-Iterable<List<Point<int>>> _processInput(String input) => input
+Iterable<List<Point<int>>> _processInput(Input input) => input
     .getLines()
     .map(
       (e) => e.split(':').map(

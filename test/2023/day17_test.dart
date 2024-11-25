@@ -1,8 +1,9 @@
 import 'package:adventofcode/adventofcode2023.dart';
+import 'package:adventofcode/src/utils.dart';
 import 'package:test/test.dart';
 
 void main() {
-  const input1 = '''
+  const input1 = Input('''
 2413432311323
 3215453535623
 3255245654254
@@ -15,7 +16,7 @@ void main() {
 4564679986453
 1224686865563
 2546548887735
-4322674655533''';
+4322674655533''');
 
   test('first star', () {
     expect(
@@ -23,7 +24,7 @@ void main() {
 1111
 1991
 1991
-1111'''),
+1111''' as Input,),
       equals(6),
     );
     expect(
@@ -32,7 +33,7 @@ void main() {
 19991
 19991
 19991
-11111'''),
+11111''' as Input,),
       equals(16),
     );
     expect(
@@ -41,7 +42,7 @@ void main() {
 19991
 19991
 19991
-11111'''),
+11111''' as Input,),
       equals(16),
     );
     expect(
@@ -51,7 +52,7 @@ void main() {
 199991
 199991
 199991
-111111'''),
+111111''' as Input,),
       equals(34),
     );
     expect(day17star1(input1), equals(102));

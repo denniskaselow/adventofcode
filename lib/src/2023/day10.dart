@@ -7,13 +7,13 @@ typedef Tile = ({Set<DirectionCross> directions, String original});
 
 final startDirections = DirectionCross.values.toSet();
 
-int day10star1(String input) {
+int day10star1(Input input) {
   final area = getArea(input);
   final (distance, _) = visitAllConnected(area);
   return distance;
 }
 
-int day10star2(String input) {
+int day10star2(Input input) {
   final area = getArea(input);
   final (_, visited) = visitAllConnected(area);
   var inside = false;
@@ -68,7 +68,7 @@ int day10star2(String input) {
 }
 
 Map<Coords, Tile> getArea(
-  String input,
+  Input input,
 ) =>
     input.getLines().indexed.fold(<Coords, Tile>{}, (previousValue, row) {
       final line = row.$2;

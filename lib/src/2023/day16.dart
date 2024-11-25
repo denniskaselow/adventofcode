@@ -5,19 +5,19 @@ import '../utils.dart';
 typedef Coords = ({int x, int y});
 typedef Grid = Map<Coords, String>;
 
-int maxX = 0;
-int maxY = 0;
+var maxX = 0;
+var maxY = 0;
 
-Iterable<String> _processInput(String input) => input.getLines();
+Iterable<String> _processInput(Input input) => input.getLines();
 
-int day16star1(String input) {
+int day16star1(Input input) {
   final grid = getGrid(input);
   final result = <Coords, Set<DirectionCross>>{};
   traverseGrid(grid, (x: -1, y: 0), DirectionCross.east, result);
   return result.length;
 }
 
-int day16star2(String input) {
+int day16star2(Input input) {
   final grid = getGrid(input);
 
   var maxEnergized = 0;
@@ -43,7 +43,7 @@ int day16star2(String input) {
   return maxEnergized;
 }
 
-Map<Coords, String> getGrid(String input) {
+Map<Coords, String> getGrid(Input input) {
   final lines = _processInput(input);
   maxY = lines.length;
   maxX = lines.first.length;

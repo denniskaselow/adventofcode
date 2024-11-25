@@ -2,9 +2,9 @@ import 'package:collection/collection.dart';
 
 import '../utils.dart';
 
-String day25star1(String input) => _processInput(input).sum.toSnafu();
+String day25star1(Input input) => _processInput(input).sum.toSnafu();
 
-int day25star2(String input) => _processInput(input).length;
+int day25star2(Input input) => _processInput(input).length;
 
 extension Snafu on int {
   String toSnafu() => toRadixString(5)
@@ -36,7 +36,7 @@ extension Snafu on int {
       .join();
 }
 
-List<int> _processInput(String input) => input
+List<int> _processInput(Input input) => input
     .getLines()
     .map(
       (e) => e

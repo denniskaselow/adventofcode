@@ -1,11 +1,11 @@
 import '../utils.dart';
 
-Iterable<String> _processInput(String input) => input.getLines();
+Iterable<String> _processInput(Input input) => input.getLines();
 
 typedef Coords = ({int x, int y});
 typedef Grid = Map<Coords, String>;
 
-int day21star1(String input, [int maxSteps = 64]) {
+int day21star1(Input input, [int maxSteps = 64]) {
   final lines = _processInput(input);
   final maxX = lines.first.length;
   final maxY = lines.length;
@@ -62,7 +62,7 @@ int day21star1(String input, [int maxSteps = 64]) {
   return count;
 }
 
-int day21star2(String input, [int maxSteps = 26501365]) {
+int day21star2(Input input, [int maxSteps = 26501365]) {
   final lines = _processInput(input);
   final maxX = lines.first.length;
   final maxY = lines.length;

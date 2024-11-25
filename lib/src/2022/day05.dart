@@ -2,14 +2,14 @@ import 'package:collection/collection.dart';
 
 import '../utils.dart';
 
-Iterable<String> _processInput(String input) => input.getLines();
+Iterable<String> _processInput(Input input) => input.getLines();
 
-String day5star1(String input) => _run(input, move1);
+String day5star1(Input input) => _run(input, move1);
 
-String day5star2(String input) => _run(input, move2);
+String day5star2(Input input) => _run(input, move2);
 
 String _run(
-  String input,
+  Input input,
   void Function(
     List<List<String>> rows,
     int amount,

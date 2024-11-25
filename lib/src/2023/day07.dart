@@ -2,14 +2,14 @@ import 'package:more/more.dart';
 
 import '../utils.dart';
 
-Iterable<String> _processInput(String input) => input.getLines();
+Iterable<String> _processInput(Input input) => input.getLines();
 
-int day07star1(String input) => getWinnings(input, '23456789TJQKA');
+int day07star1(Input input) => getWinnings(input, '23456789TJQKA');
 
-int day07star2(String input) =>
+int day07star2(Input input) =>
     getWinnings(input, 'J23456789TQKA', hasJoker: true);
 
-int getWinnings(String input, String mapping, {bool hasJoker = false}) =>
+int getWinnings(Input input, String mapping, {bool hasJoker = false}) =>
     _processInput(input)
         .map((e) {
           final [hand, bid] = e.split(' ');
@@ -34,7 +34,7 @@ int getWinnings(String input, String mapping, {bool hasJoker = false}) =>
         .toSortedList(
           comparator: (a, b) => a.sortableHand.compareTo(b.sortableHand),
         )
-        .indexed(offset: 1)
+        .indexed(start: 1)
         .fold(
           0,
           (previousValue, element) =>

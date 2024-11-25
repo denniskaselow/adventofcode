@@ -1,8 +1,8 @@
 import '../utils.dart';
 
-Iterable<String> _processInput(String input) => input.getLines();
+Iterable<String> _processInput(Input input) => input.getLines();
 
-int day4star1(String input) => _processInput(input)
+int day4star1(Input input) => _processInput(input)
     .map((e) => e.split(',').map((e) => e.split('-').map(int.parse)))
     .where(
       (element) =>
@@ -13,7 +13,7 @@ int day4star1(String input) => _processInput(input)
     )
     .length;
 
-int day4star2(String input) => _processInput(input)
+int day4star2(Input input) => _processInput(input)
     .map((e) => e.split(',').map((e) => e.split('-').map(int.parse)))
     .where(
       (element) => !(element.first.first > element.last.last ||

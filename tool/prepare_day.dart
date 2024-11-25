@@ -7,12 +7,16 @@ void main(List<String> args) {
   };
   final paddedDay = day.toString().padLeft(2, '0');
 
-  File('lib/src/$year/day$paddedDay.dart').writeAsStringSync('''
+  final taskFile = File('lib/src/$year/day$paddedDay.dart');
+  if (!taskFile.existsSync()) {
+    taskFile.createSync(recursive: true);
+  }
+  taskFile.writeAsStringSync('''
 import '../utils.dart';
 
-Iterable<String> _processInput(String input) => input.getLines();
+Iterable<String> _processInput(Input input) => input.getLines();
 
-int day${paddedDay}star1(String input) {
+int day${paddedDay}star1(Input input) {
   final result = _processInput(input).map((line) {
     final converted = line.split('').map((cell) {
       return cell;
@@ -24,16 +28,21 @@ int day${paddedDay}star1(String input) {
   return result.length;
 }
 
-int day${paddedDay}star2(String input) => _processInput(input).length;
+int day${paddedDay}star2(Input input) => _processInput(input).length;
 ''');
 
-  File('test/$year/day${paddedDay}_test.dart').writeAsStringSync('''
+  final testFile = File('test/$year/day${paddedDay}_test.dart');
+  if (!testFile.existsSync()) {
+    testFile.createSync(recursive: true);
+  }
+  testFile.writeAsStringSync('''
 import 'package:adventofcode/adventofcode$year.dart';
+import 'package:adventofcode/src/utils.dart';
 import 'package:test/test.dart';
 
 void main() {
-  const input = \'\'\'
-\'\'\';
+  const input = Input(\'\'\'
+\'\'\');
 
   test('first star', () {
     expect(day${paddedDay}star1(input), equals(0));

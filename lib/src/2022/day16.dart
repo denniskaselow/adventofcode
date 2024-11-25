@@ -8,17 +8,17 @@ final regExp = RegExp(
   r'Valve (..) has flow rate=(\d+); tunnel(s?) lead(s?) to valve(s?)? (.+)',
 );
 
-int day16star1(String input) {
+int day16star1(Input input) {
   final caverns = getCaverns(input);
   return visitNodes(Node('AA', {}, 30), caverns);
 }
 
-int day16star2(String input) {
+int day16star2(Input input) {
   final caverns = getCaverns(input);
   return visitNodes(Node('AA', {}, 26), caverns, withElephant: true);
 }
 
-Map<String, Cavern> getCaverns(String input) {
+Map<String, Cavern> getCaverns(Input input) {
   final lines = _processInput(input);
   final caverns = <String, Cavern>{};
   for (final line in lines) {
@@ -93,7 +93,7 @@ int visitNodes(
 
 final Map<String, int> cache = {};
 
-List<String> _processInput(String input) => input.getLines();
+List<String> _processInput(Input input) => input.getLines();
 
 class Cavern {
   Cavern(this.id, this.flow, this.tunnels);

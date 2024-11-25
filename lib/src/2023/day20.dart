@@ -21,7 +21,7 @@ sealed class Module {
 class FlipFlop extends Module {
   FlipFlop(super.targets);
 
-  bool on = false;
+  var on = false;
 
   @override
   SignalType? onSignal(Signal signal) {
@@ -54,7 +54,7 @@ class Broadcaster extends Module {
 typedef Modules = Map<String, Module>;
 typedef Signal = ({String source, String target, SignalType type});
 
-int day20star1(String input) {
+int day20star1(Input input) {
   final modules = getModules(input);
 
   var low = 0;
@@ -82,7 +82,7 @@ int day20star1(String input) {
   return high * low;
 }
 
-int day20star2(String input) {
+int day20star2(Input input) {
   final modules = getModules(input);
 
   var count = 0;
@@ -129,7 +129,7 @@ int day20star2(String input) {
   return 0;
 }
 
-Map<String, Module> getModules(String input) {
+Map<String, Module> getModules(Input input) {
   final modules = input.getLines().fold(Modules(), (prev, line) {
     final [source, targets] = line.split(' -> ');
     final targetList = targets.split(',').map((e) => e.trim()).toList();

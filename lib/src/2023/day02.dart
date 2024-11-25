@@ -2,11 +2,11 @@ import 'dart:math';
 
 import '../utils.dart';
 
-Iterable<Iterable<List<String>>> _processInput(String input) => input
+Iterable<Iterable<List<String>>> _processInput(Input input) => input
     .getLines()
     .map((e) => e.split(RegExp('[:;]')).skip(1).map((e) => e.split(',')));
 
-int day02star1(String input) {
+int day02star1(Input input) {
   final games = _processInput(input);
   var result = 0;
   var gameId = 0;
@@ -35,7 +35,7 @@ int day02star1(String input) {
   return result;
 }
 
-int day02star2(String input) {
+int day02star2(Input input) {
   final games = _processInput(input);
   var result = 0;
   for (final game in games) {

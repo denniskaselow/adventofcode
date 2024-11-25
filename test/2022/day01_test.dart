@@ -1,8 +1,9 @@
 import 'package:adventofcode/adventofcode2022.dart';
+import 'package:adventofcode/src/utils.dart';
 import 'package:test/test.dart';
 
 void main() {
-  const input = '''
+  const input = Input('''
 1000
 2000
 3000
@@ -16,7 +17,7 @@ void main() {
 8000
 9000
 
-10000''';
+10000''');
 
   test('first star', () {
     expect(day1star1(input), equals(24000));

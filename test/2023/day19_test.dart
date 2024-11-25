@@ -1,8 +1,9 @@
 import 'package:adventofcode/adventofcode2023.dart';
+import 'package:adventofcode/src/utils.dart';
 import 'package:test/test.dart';
 
 void main() {
-  const input = '''
+  const input = Input('''
 px{a<2006:qkq,m>2090:A,rfg}
 pv{a>1716:R,A}
 lnx{m>1548:A,A}
@@ -19,7 +20,7 @@ hdj{m>838:A,pv}
 {x=1679,m=44,a=2067,s=496}
 {x=2036,m=264,a=79,s=2244}
 {x=2461,m=1339,a=466,s=291}
-{x=2127,m=1623,a=2188,s=1013}''';
+{x=2127,m=1623,a=2188,s=1013}''');
 
   test('first star', () {
     expect(day19star1(input), equals(19114));

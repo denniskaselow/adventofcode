@@ -6,7 +6,7 @@ final _regExp = RegExp(
   r'Blueprint (?<id>\d+): Each ore robot costs (?<ore>\d+) ore. Each clay robot costs (?<clay>\d+) ore. Each obsidian robot costs (?<obsidianOre>\d+) ore and (?<obsidianClay>\d+) clay. Each geode robot costs (?<geodeOre>\d+) ore and (?<geodeObsidian>\d+) obsidian.',
 );
 
-int day19star1(String input) {
+int day19star1(Input input) {
   final blueprints = _processInput(input);
   var result = 0;
   for (final blueprint in blueprints) {
@@ -16,7 +16,7 @@ int day19star1(String input) {
   return result;
 }
 
-int day19star2(String input) {
+int day19star2(Input input) {
   final blueprints = _processInput(input);
   var result = 1;
   for (final blueprint in blueprints.take(3)) {
@@ -26,7 +26,7 @@ int day19star2(String input) {
   return result;
 }
 
-Iterable<Blueprint> _processInput(String input) =>
+Iterable<Blueprint> _processInput(Input input) =>
     input.getLines().map((e) => _regExp.allMatches(e).first).map(
           (e) => Blueprint(int.parse(e.namedGroup('id')!), [
             [int.parse(e.namedGroup('ore')!), 0, 0],
@@ -137,5 +137,5 @@ class Blueprint {
   final int id;
   final List<List<int>> costs;
   final List<int> maxCosts;
-  int maxGeodes = 0;
+  var maxGeodes = 0;
 }

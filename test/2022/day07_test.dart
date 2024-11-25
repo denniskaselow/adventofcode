@@ -1,8 +1,9 @@
 import 'package:adventofcode/adventofcode2022.dart';
+import 'package:adventofcode/src/utils.dart';
 import 'package:test/test.dart';
 
 void main() {
-  const input = r'''
+  const input = Input(r'''
 $ cd /
 $ ls
 dir a
@@ -25,7 +26,7 @@ $ ls
 4060174 j
 8033020 d.log
 5626152 d.ext
-7214296 k''';
+7214296 k''');
 
   test('day 7 first star', () {
     expect(day7star1(input), equals(95437));

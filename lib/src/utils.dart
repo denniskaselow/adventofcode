@@ -14,8 +14,9 @@ extension ToInt on String {
   }
 }
 
-extension Lines on String {
-  List<String> getLines() => const LineSplitter().convert(this);
+extension type const Input(String _) implements String {
+  List<Input> getLines() => const LineSplitter().convert(this).cast<Input>();
+  List<Input> getInputGroups() => split('\n\n').cast<Input>();
 }
 
 extension FirstIndexWhere<T> on Iterable<T> {
@@ -73,7 +74,7 @@ extension DebugIterable<T> on Iterable<T> {
 }
 
 extension PrimeFactors on int {
-  static final List<int> _primes = [2, 3];
+  static final _primes = <int>[2, 3];
 
   List<int> getPrimeFactors() {
     final result = <int>[];

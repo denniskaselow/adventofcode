@@ -4,10 +4,10 @@ import 'package:more/more.dart';
 
 import '../utils.dart';
 
-Iterable<Iterable<int>> _processInput(String input) =>
+Iterable<Iterable<int>> _processInput(Input input) =>
     input.getLines().map((line) => line.split('x').map(int.parse));
 
-int day02star1(String input) {
+int day02star1(Input input) {
   final processedInput = _processInput(input)
       .map((e) => e.permutations(2).map((e) => e[0] * e[1]));
   final totalArea = processedInput.map((e) => e.reduce(sum)).reduce(sum);
@@ -15,7 +15,7 @@ int day02star1(String input) {
   return totalArea + minArea;
 }
 
-int day02star2(String input) {
+int day02star2(Input input) {
   final length = _processInput(input)
       .map((e) => e.toList()..remove(e.reduce(max)))
       .map((e) => 2 * e.first + 2 * e.last)

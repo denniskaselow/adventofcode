@@ -4,10 +4,10 @@ import 'package:collection/collection.dart';
 
 import '../utils.dart';
 
-int day9star1(String input) => evaluate(input, 1);
-int day9star2(String input) => evaluate(input, 9);
+int day9star1(Input input) => evaluate(input, 1);
+int day9star2(Input input) => evaluate(input, 9);
 
-int evaluate(String input, int tailLength) {
+int evaluate(Input input, int tailLength) {
   final movements = input.getLines().map((e) => e.split(' '));
   var x = 0;
   var y = 0;

@@ -15,9 +15,9 @@ import '../utils.dart';
       ),
     );
 
-int day03star1(String input) => _processInput(input).visited.length;
+int day03star1(Input input) => _processInput(input).visited.length;
 
-int day03star2(String input) {
+int day03star2(Input input) {
   final santa =
       input.split('').whereIndexed((index, element) => index.isEven).join();
   final roboSanta =

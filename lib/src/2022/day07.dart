@@ -2,9 +2,9 @@ import 'package:collection/collection.dart';
 
 import '../utils.dart';
 
-Iterable<String> _processInput(String input) => input.getLines();
+Iterable<String> _processInput(Input input) => input.getLines();
 
-int day7star1(String input) {
+int day7star1(Input input) {
   final root = getRoot(input);
 
   return root
@@ -14,7 +14,7 @@ int day7star1(String input) {
       .fold(0, (previousValue, element) => previousValue + element);
 }
 
-int day7star2(String input) {
+int day7star2(Input input) {
   final root = getRoot(input);
   final required = 30000000 - (70000000 - root.size);
 
@@ -25,7 +25,7 @@ int day7star2(String input) {
       .firstWhere((element) => element > required);
 }
 
-Directory getRoot(String input) {
+Directory getRoot(Input input) {
   final root = Directory(null);
   var currentDir = root;
   for (final line in _processInput(input)) {

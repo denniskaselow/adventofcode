@@ -4,9 +4,9 @@ import '../utils.dart';
 
 typedef Coords = ({int x, int y});
 
-Iterable<String> _processInput(String input) => input.getLines();
+Iterable<String> _processInput(Input input) => input.getLines();
 
-int day14star1(String input) =>
+int day14star1(Input input) =>
     calcLoad(rotateField(_processInput(input), clockwise: false));
 
 int calcLoad(List<String> field) {
@@ -57,7 +57,7 @@ List<String> rotateField(Iterable<String> field, {bool clockwise = true}) =>
 
 Map<String, int> fieldStates = {};
 
-int day14star2(String input) {
+int day14star2(Input input) {
   final originalField = _processInput(input);
   final rollWestField =
       originalField.map((e) => e.replaceAll('O', '.')).toList();

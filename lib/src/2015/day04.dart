@@ -1,6 +1,8 @@
 import 'package:crypto/crypto.dart';
 
-int _processInput(String input, int count) {
+import '../utils.dart';
+
+int _processInput(Input input, int count) {
   var index = 0;
   do {
     index++;
@@ -11,6 +13,6 @@ int _processInput(String input, int count) {
   return index;
 }
 
-int day04star1(String input) => _processInput(input, 5);
+int day04star1(Input input) => _processInput(input, 5);
 
-int day04star2(String input) => _processInput(input, 6);
+int day04star2(Input input) => _processInput(input, 6);

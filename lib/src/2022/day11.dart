@@ -4,11 +4,11 @@ import '../utils.dart';
 
 typedef ManageWorryLevel = int Function(int, int);
 
-int day11star1(String input) => executeRounds(input, 20, (x, _) => x ~/ 3);
-int day11star2(String input) =>
+int day11star1(Input input) => executeRounds(input, 20, (x, _) => x ~/ 3);
+int day11star2(Input input) =>
     executeRounds(input, 10000, (x, maxWorry) => x % maxWorry);
 
-int executeRounds(String input, int rounds, ManageWorryLevel manageWorryLevel) {
+int executeRounds(Input input, int rounds, ManageWorryLevel manageWorryLevel) {
   final monkeys = _processInput(input);
   final inspections = List.filled(monkeys.length, 0);
   final maxWorry =
@@ -35,33 +35,33 @@ int executeRounds(String input, int rounds, ManageWorryLevel manageWorryLevel) {
   return inspections[0] * inspections[1];
 }
 
-List<List<List<int>>> _processInput(String input) => input
-    .replaceAll(',', '')
-    .split('\n\n')
-    .map(
-      (e) => e
-          .getLines()
-          .skip(1)
-          .map((e) => e.split(':')[1].trim().split(' '))
-          .mapIndexed(
-            (index, element) => index == 1
-                ? element
-                    .skip(3)
-                    .map(
-                      (e) => e == '*'
-                          ? '0'
-                          : e == '+'
-                              ? '1'
-                              : e == 'old'
-                                  ? '0'
-                                  : e,
-                    )
-                    .toList()
-                : index > 1
-                    ? [element.last]
-                    : element,
-          )
-          .map((e) => e.map(int.parse).toList())
-          .toList(),
-    )
-    .toList();
+List<List<List<int>>> _processInput(Input input) =>
+    (input.replaceAll(',', '') as Input)
+        .getInputGroups()
+        .map(
+          (e) => e
+              .getLines()
+              .skip(1)
+              .map((e) => e.split(':')[1].trim().split(' '))
+              .mapIndexed(
+                (index, element) => index == 1
+                    ? element
+                        .skip(3)
+                        .map(
+                          (e) => e == '*'
+                              ? '0'
+                              : e == '+'
+                                  ? '1'
+                                  : e == 'old'
+                                      ? '0'
+                                      : e,
+                        )
+                        .toList()
+                    : index > 1
+                        ? [element.last]
+                        : element,
+              )
+              .map((e) => e.map(int.parse).toList())
+              .toList(),
+        )
+        .toList();

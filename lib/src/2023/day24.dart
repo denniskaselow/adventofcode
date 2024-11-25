@@ -4,13 +4,13 @@ import 'package:collection/collection.dart';
 
 import '../utils.dart';
 
-Iterable<String> _processInput(String input) => input.getLines();
+Iterable<String> _processInput(Input input) => input.getLines();
 
 typedef HailPath = ({num x1, num y1, num x2, num y2});
 typedef HailVector = ({int x, int y, int z, int vx, int vy, int vz});
 
 int day24star1(
-  String input, [
+  Input input, [
   int start = 200000000000000,
   int end = 400000000000000,
 ]) {
@@ -73,7 +73,7 @@ int day24star1(
 }
 
 // solution based on https://www.reddit.com/r/adventofcode/comments/18pnycy/2023_day_24_solutions/keqf8uq/
-int day24star2(String input) {
+int day24star2(Input input) {
   final hailstones = _processInput(input)
       .map(
         (line) => line

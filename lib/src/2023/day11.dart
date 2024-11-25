@@ -3,14 +3,14 @@ import 'package:more/more.dart';
 
 import '../utils.dart';
 
-Iterable<String> _processInput(String input) => input.getLines();
+Iterable<String> _processInput(Input input) => input.getLines();
 
-int day11star1(String input) => getSolution(input, 1);
+int day11star1(Input input) => getSolution(input, 1);
 
-int day11star2(String input, [int inflation = 1000000]) =>
+int day11star2(Input input, [int inflation = 1000000]) =>
     getSolution(input, inflation - 1);
 
-int getSolution(String input, int inflation) {
+int getSolution(Input input, int inflation) {
   final lines = _processInput(input);
   final galaxies = lines
       .indexed()
@@ -18,8 +18,8 @@ int getSolution(String input, int inflation) {
       .flattened
       .toList();
 
-  final inflationX = galaxies.map((e) => e.x).toMap(value: (_) => 0);
-  final inflationY = galaxies.map((e) => e.y).toMap(value: (_) => 0);
+  final inflationX = galaxies.map((e) => e.x).toMap<int, int>(value: (_) => 0);
+  final inflationY = galaxies.map((e) => e.y).toMap<int, int>(value: (_) => 0);
 
   var inflate = 0;
   for (var i = 0; i < lines.first.length; i++) {

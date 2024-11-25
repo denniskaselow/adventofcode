@@ -4,7 +4,7 @@ import 'package:more/more.dart';
 
 import '../utils.dart';
 
-int day05star1(String input) {
+int day05star1(Input input) {
   final lines = input.getLines();
   final seeds = getSeeds(lines);
   final mappings = createMappings(lines);
@@ -24,7 +24,7 @@ int day05star1(String input) {
   return closest;
 }
 
-int day05star2(String input) {
+int day05star2(Input input) {
   final lines = input.getLines();
   var seedRanges =
       getSeeds(lines).window(2, step: 2).map((e) => SeedRange(e[0], e[1]));

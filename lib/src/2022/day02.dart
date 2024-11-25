@@ -2,14 +2,14 @@ import 'package:collection/collection.dart';
 
 import '../utils.dart';
 
-Iterable<String> _processInput(String input) => input.getLines();
+Iterable<String> _processInput(Input input) => input.getLines();
 
-int day2star1(String input) => _processInput(input)
+int day2star1(Input input) => _processInput(input)
     .map((e) => e.split(' ').map(Rps.forItem1))
     .map((e) => e.last.getScore(e.first))
     .sum;
 
-int day2star2(String input) => _processInput(input)
+int day2star2(Input input) => _processInput(input)
     .map(Rps.forItem2)
     .map((e) => e.last.getScore(e.first))
     .sum;

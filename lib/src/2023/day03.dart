@@ -4,9 +4,9 @@ import '../utils.dart';
 
 typedef PartId = ({int line, int start, int end, int number});
 
-Iterable<String> _processInput(String input) => input.getLines();
+Iterable<String> _processInput(Input input) => input.getLines();
 
-int day03star1(String input) {
+int day03star1(Input input) {
   const invalidSymbol = '0123456789.';
   final data = <(int, int, int), int>{};
   final lines = _processInput(input).toList();
@@ -36,7 +36,7 @@ int day03star1(String input) {
   return data.values.sum;
 }
 
-int day03star2(String input) {
+int day03star2(Input input) {
   const invalidSymbol = '0123456789.';
   final data = <(int, int), PartId>{};
   final lines = _processInput(input).toList();

@@ -2,13 +2,13 @@ import '../utils.dart';
 
 typedef Mirror = ({int length, int index, bool horizontal});
 
-Iterable<String> _processInput(String input) => input.getLines();
+Iterable<String> _processInput(Input input) => input.getLines();
 
-int day13star1(String input) => _getSolution(input, 0);
+int day13star1(Input input) => _getSolution(input, 0);
 
-int day13star2(String input) => _getSolution(input, 1);
+int day13star2(Input input) => _getSolution(input, 1);
 
-int _getSolution(String input, int smudges) {
+int _getSolution(Input input, int smudges) {
   final allLines = _processInput(input);
   final allFields = allLines.fold(
     <List<String>>[[]],

@@ -7,7 +7,7 @@ import 'package:collection/collection.dart';
 
 import '../utils.dart';
 
-int day13star1(String input) {
+int day13star1(Input input) {
   final pairs = _processInput(input);
   final correctIndex = <int>[];
   var index = 1;
@@ -22,9 +22,9 @@ int day13star1(String input) {
   return correctIndex.sum;
 }
 
-int day13star2(String input) {
+int day13star2(Input input) {
   final pairs = _processInput(input);
-  final all = <List>[];
+  final all = <List<dynamic>>[];
   for (final pair in pairs) {
     final left = jsonDecode(pair.first) as List;
     final right = jsonDecode(pair.last) as List;
@@ -52,17 +52,17 @@ int compare(List<dynamic> left, List<dynamic> right) {
     } else if (i <= left.length && i == right.length) {
       result = 1;
     } else if (left[i] is int && right[i] is int) {
-      if (left[i] < right[i]) {
+      if ((left[i] as int) < (right[i] as int)) {
         result = -1;
-      } else if (left[i] > right[i]) {
+      } else if ((left[i] as int) > (right[i] as int)) {
         result = 1;
       }
     } else if (left[i] is int && right[i] is List) {
-      result = compare([left[i]], right[i]);
+      result = compare([left[i]], right[i] as List);
     } else if (left[i] is List && right[i] is int) {
-      result = compare(left[i], [right[i]]);
+      result = compare(left[i] as List, [right[i]]);
     } else {
-      result = compare(left[i], right[i]);
+      result = compare(left[i] as List, right[i] as List);
     }
     if (result != 0) {
       return result;
@@ -71,5 +71,5 @@ int compare(List<dynamic> left, List<dynamic> right) {
   return result;
 }
 
-List<List<String>> _processInput(String input) =>
-    input.split('\n\n').map((e) => e.getLines().toList()).toList();
+List<List<String>> _processInput(Input input) =>
+    input.getInputGroups().map((e) => e.getLines().toList()).toList();

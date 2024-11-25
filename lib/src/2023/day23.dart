@@ -5,8 +5,8 @@ typedef Grid = Map<Coords, Tile>;
 typedef Connection = ({Coords node, int distance});
 typedef Graph = Map<Coords, Set<Connection>>;
 
-int maxX = 0;
-int maxY = 0;
+var maxX = 0;
+var maxY = 0;
 
 enum Tile {
   forest([]),
@@ -21,10 +21,10 @@ enum Tile {
   final List<DirectionCross> directions;
 }
 
-int day23star1(String input) => getSteps(input);
-int day23star2(String input) => getSteps(input, withSlopes: false);
+int day23star1(Input input) => getSteps(input);
+int day23star2(Input input) => getSteps(input, withSlopes: false);
 
-int getSteps(String input, {bool withSlopes = true}) {
+int getSteps(Input input, {bool withSlopes = true}) {
   final lines = input.getLines();
   maxX = lines.first.length;
   maxY = lines.length;

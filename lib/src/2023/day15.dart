@@ -4,10 +4,10 @@ import '../utils.dart';
 
 typedef Lens = ({int hash, String label, int length});
 
-Iterable<String> _processInput(String input) =>
+Iterable<String> _processInput(Input input) =>
     input.getLines().first.split(',');
 
-int day15star1(String input) => _processInput(input)
+int day15star1(Input input) => _processInput(input)
     .map(
       (e) => e.codeUnits.fold(
         0,
@@ -16,7 +16,7 @@ int day15star1(String input) => _processInput(input)
     )
     .sum;
 
-int day15star2(String input) {
+int day15star2(Input input) {
   final lenses = _processInput(input).map(
     (e) => switch (e.split(RegExp('[=-]'))) {
       [final label, final length] => (

@@ -1,14 +1,15 @@
 import 'package:adventofcode/adventofcode2022.dart';
+import 'package:adventofcode/src/utils.dart';
 import 'package:test/test.dart';
 
 void main() {
-  const input = '''
+  const input = Input('''
 vJrwpWtwJgWrhcsFMMfFFhFp
 jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
 PmmdzqPrVvPwwTWBwg
 wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
 ttgJtRGJQctTZtZT
-CrZsJsPPZsGzwwsLwLmpwMDw''';
+CrZsJsPPZsGzwwsLwLmpwMDw''');
 
   test('first star', () {
     expect(day3star1(input), equals(157));

@@ -2,19 +2,19 @@ import 'package:collection/collection.dart';
 
 import '../utils.dart';
 
-int day10star1(String input) => _processInput(input)
+int day10star1(Input input) => _processInput(input)
     .mapIndexed((index, element) => element * (index + 1))
     .whereIndexed((index, element) => (index + 1) % 40 == 20)
     .sum;
 
-String day10star2(String input) => _processInput(input)
+String day10star2(Input input) => _processInput(input)
     .mapIndexed(
       (index, element) => (element - index % 40).abs() <= 1 ? '#' : '.',
     )
     .mapIndexed((index, element) => index % 40 == 39 ? '$element\n' : element)
     .join();
 
-Iterable<int> _processInput(String input) => input
+Iterable<int> _processInput(Input input) => input
         .getLines()
         .map((e) => e.split(' '))
         .flattened

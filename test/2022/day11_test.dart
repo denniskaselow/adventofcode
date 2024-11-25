@@ -1,8 +1,9 @@
 import 'package:adventofcode/adventofcode2022.dart';
+import 'package:adventofcode/src/utils.dart';
 import 'package:test/test.dart';
 
 void main() {
-  const input = '''
+  const input = Input('''
 Monkey 0:
   Starting items: 79, 98
   Operation: new = old * 19
@@ -29,7 +30,7 @@ Monkey 3:
   Operation: new = old + 3
   Test: divisible by 17
     If true: throw to monkey 0
-    If false: throw to monkey 1''';
+    If false: throw to monkey 1''');
 
   test('day 11 first star', () {
     expect(day11star1(input), equals(10605));

@@ -4,13 +4,13 @@ import 'package:more/more.dart';
 
 import '../utils.dart';
 
-int day14star1(String input) {
+int day14star1(Input input) {
   final grid = _processInput(input);
   final maxY = grid.keys.fold(0, max);
   return simulateSand(grid, maxY, hasFloor: false);
 }
 
-int day14star2(String input) {
+int day14star2(Input input) {
   final grid = _processInput(input);
   final maxY = grid.keys.fold(0, max) + 1;
   return simulateSand(grid, maxY, hasFloor: true);
@@ -46,7 +46,7 @@ int simulateSand(Map<int, Set<int>> grid, int maxY, {required bool hasFloor}) {
   return settledCount;
 }
 
-Map<int, Set<int>> _processInput(String input) => input
+Map<int, Set<int>> _processInput(Input input) => input
         .getLines()
         .map(
           (e) =>

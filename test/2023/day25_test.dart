@@ -1,8 +1,9 @@
 import 'package:adventofcode/adventofcode2023.dart';
+import 'package:adventofcode/src/utils.dart';
 import 'package:test/test.dart';
 
 void main() {
-  const input = '''
+  const input = Input('''
 jqt: rhn xhk nvd
 rsh: frs pzl lsr
 xhk: hfx
@@ -15,7 +16,7 @@ ntq: jqt hfx bvb xhk
 nvd: lhk
 lsr: lhk
 rzs: qnr cmg lsr rsh
-frs: qnr lhk lsr''';
+frs: qnr lhk lsr''');
 
   test('first star', () {
     expect(day25star1(input), equals(54));

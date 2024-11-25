@@ -1,13 +1,14 @@
 import 'dart:io' as io;
 
 import 'package:adventofcode/adventofcode2023.dart';
+import 'package:adventofcode/src/utils.dart';
 
 void main(List<String> arguments) {
   run(1, day12star1);
   run(2, day12star2);
 }
 
-void run(int star, Function(String input) solver) {
+void run(int star, dynamic Function(Input input) solver) {
   final input = _getInput();
   final stopwatch = Stopwatch()..start();
   final result = solver(input);
@@ -18,4 +19,5 @@ void run(int star, Function(String input) solver) {
   io.stdout.writeln('---------------------------');
 }
 
-String _getInput() => io.File('bin/input.txt').readAsStringSync().trimRight();
+Input _getInput() =>
+    Input(io.File('bin/input.txt').readAsStringSync().trimRight());

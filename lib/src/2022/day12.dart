@@ -4,13 +4,13 @@ import 'package:meta/meta.dart';
 
 import '../utils.dart';
 
-int day12star1(String input) => travel(input, 'S');
-int day12star2(String input) => travel(input, 'a');
+int day12star1(Input input) => travel(input, 'S');
+int day12star2(Input input) => travel(input, 'a');
 
-List<List<int>> _processInput(String input) =>
+List<List<int>> _processInput(Input input) =>
     input.getLines().map((e) => e.codeUnits.toList()).toList();
 
-int travel(String input, String startElevation) {
+int travel(Input input, String startElevation) {
   final grid = _processInput(input);
   final start = <Cell>[];
   var end = const Cell(0, 0);

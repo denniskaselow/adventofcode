@@ -1,8 +1,9 @@
 import 'package:adventofcode/adventofcode2023.dart';
+import 'package:adventofcode/src/utils.dart';
 import 'package:test/test.dart';
 
 void main() {
-  const input = '''
+  const input = Input('''
 #.#####################
 #.......#########...###
 #######.#########.#.###
@@ -25,7 +26,7 @@ void main() {
 #...#...#.#.>.>.#.>.###
 #.###.###.#.###.#.#v###
 #.....###...###...#...#
-#####################.#''';
+#####################.#''');
 
   test('first star', () {
     expect(day23star1(input), equals(94));

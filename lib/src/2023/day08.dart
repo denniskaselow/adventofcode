@@ -1,12 +1,12 @@
 import '../utils.dart';
 
-Iterable<String> _processInput(String input) => input.getLines();
+Iterable<String> _processInput(Input input) => input.getLines();
 
-int day08star1(String input) => _getSteps(input, 'AAA');
+int day08star1(Input input) => _getSteps(input, 'AAA');
 
-int day08star2(String input) => _getSteps(input, 'A');
+int day08star2(Input input) => _getSteps(input, 'A');
 
-int _getSteps(String input, String startPoint) {
+int _getSteps(Input input, String startPoint) {
   final [instructionsStr, _, ...mapping] = _processInput(input).toList();
   final travelMap = mapping.map((e) {
     final [source, left, right, _] = e.split(RegExp('[ =,()]+'));

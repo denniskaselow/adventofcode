@@ -2,7 +2,7 @@ import 'dart:math';
 
 import '../utils.dart';
 
-int day06star1(String input) {
+int day06star1(Input input) {
   final [maxTimes, distances] = input
       .getLines()
       .map((e) => e.split(RegExp(' +')).skip(1).map(int.parse).toList())
@@ -14,7 +14,7 @@ int day06star1(String input) {
   return requiredTime.reduce((value, element) => value * element);
 }
 
-int day06star2(String input) {
+int day06star2(Input input) {
   final [maxTime, distance] = input
       .getLines()
       .map((e) => int.parse(e.split(RegExp(' +')).skip(1).join()))

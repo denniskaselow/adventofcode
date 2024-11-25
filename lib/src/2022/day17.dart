@@ -2,10 +2,12 @@ import 'dart:math';
 
 import 'package:collection/collection.dart';
 
-int day17star1(String input) => simulateRockfall(input, 2022);
-int day17star2(String input) => simulateRockfall(input, 1000000000000);
+import '../utils.dart';
 
-int simulateRockfall(String input, int maxRocks) {
+int day17star1(Input input) => simulateRockfall(input, 2022);
+int day17star2(Input input) => simulateRockfall(input, 1000000000000);
+
+int simulateRockfall(Input input, int maxRocks) {
   final movements = _processInput(input);
   final maxGusts = movements.length;
   var highest = 1;
@@ -133,7 +135,7 @@ Point<int> blowWind(Point<int> leftBottom, Point<int> wind, Rocks rock) {
   return nextPos;
 }
 
-List<Point<int>> _processInput(String input) => input
+List<Point<int>> _processInput(Input input) => input
     .split('')
     .map((e) => const [Point<int>(-1, 0), Point<int>(1, 0)]['<>'.indexOf(e)])
     .toList();

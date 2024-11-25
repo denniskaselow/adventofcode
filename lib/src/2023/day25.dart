@@ -4,9 +4,9 @@ import '../utils.dart';
 
 typedef Graph = Map<String, Set<String>>;
 
-Iterable<String> _processInput(String input) => input.getLines();
+Iterable<String> _processInput(Input input) => input.getLines();
 
-int day25star1(String input) {
+int day25star1(Input input) {
   final graph = _processInput(input).fold(Graph(), (graph, line) {
     final [nodes, connections] =
         line.split(':').map((e) => e.trim().split(' ')).toList();
@@ -87,4 +87,4 @@ String farthestNode(Graph graph, String source) {
   return current;
 }
 
-int day25star2(String input) => _processInput(input).length;
+int day25star2(Input input) => _processInput(input).length;

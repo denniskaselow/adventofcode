@@ -12,7 +12,7 @@ enum Operation {
   none;
 }
 
-int day19star1(String input) {
+int day19star1(Input input) {
   final lines = input.getLines();
   final workflowsDesc = lines.takeWhile((value) => value != '');
   final partsDesc = lines.skip(workflowsDesc.length + 1);
@@ -98,7 +98,7 @@ Map<String, List<Rule>> getWorkflows(Iterable<String> workflowsDesc) {
 typedef Range = Map<String, ({int start, int end})>;
 typedef PartRange = ({Range range, String current});
 
-int day19star2(String input) {
+int day19star2(Input input) {
   final lines = input.getLines();
   final workflowsDesc = lines.takeWhile((value) => value != '');
 

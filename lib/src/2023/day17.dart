@@ -20,13 +20,13 @@ typedef Move = ({
   int heatloss,
 });
 
-int maxX = 0;
-int maxY = 0;
+var maxX = 0;
+var maxY = 0;
 
-int day17star1(String input) => getSolution(input, 1, 3);
-int day17star2(String input) => getSolution(input, 4, 10);
+int day17star1(Input input) => getSolution(input, 1, 3);
+int day17star2(Input input) => getSolution(input, 4, 10);
 
-int getSolution(String input, int moveMin, int moveMax) {
+int getSolution(Input input, int moveMin, int moveMax) {
   final lines = input.getLines();
   maxY = lines.length;
   maxX = lines.first.length;
