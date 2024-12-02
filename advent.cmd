@@ -1,0 +1,1 @@
+dart bin/adventofcode.dart 
