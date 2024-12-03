@@ -14,7 +14,7 @@ void main(List<String> args) {
   taskFile.writeAsStringSync('''
 import '../utils.dart';
 
-Iterable<String> _processInput(Input input) => input.getLines();
+_processInput(Input input) => input.getLines();
 
 int day${paddedDay}star1(Input input) {
   final result = _processInput(input).map((line) {
