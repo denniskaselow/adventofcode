@@ -5,9 +5,10 @@ extension ToInt on String {
     if (length > 1) {
       throw Exception('$this needs to be a character');
     }
-    final base = compareTo('A') >= 0 && compareTo('Z') <= 0
-        ? 'A'.codeUnits.first
-        : compareTo('a') >= 0 && compareTo('z') <= 0
+    final base =
+        compareTo('A') >= 0 && compareTo('Z') <= 0
+            ? 'A'.codeUnits.first
+            : compareTo('a') >= 0 && compareTo('z') <= 0
             ? 'a'.codeUnits.first
             : (throw Exception("don't know what to do with $this"));
     return codeUnits.first - base + offset;
@@ -16,7 +17,7 @@ extension ToInt on String {
 
 extension type const Input(String _) implements String {
   List<Input> getLines() => const LineSplitter().convert(this).cast<Input>();
-  List<Input> getInputGroups() => split('\n\n').cast<Input>();
+  List<Input> getInputGroups() => split(RegExp(r'(\r?\n){2}')).cast<Input>();
 }
 
 extension FirstIndexWhere<T> on Iterable<T> {
@@ -127,21 +128,21 @@ enum DirectionCross {
   final int y;
   final String ui;
   DirectionCross get opposite => switch (this) {
-        north => south,
-        south => north,
-        east => west,
-        west => east,
-      };
+    north => south,
+    south => north,
+    east => west,
+    west => east,
+  };
   DirectionSquare get asSquare => switch (this) {
-        north => DirectionSquare.n,
-        south => DirectionSquare.s,
-        east => DirectionSquare.e,
-        west => DirectionSquare.w,
-      };
+    north => DirectionSquare.n,
+    south => DirectionSquare.s,
+    east => DirectionSquare.e,
+    west => DirectionSquare.w,
+  };
   String get orientation => switch (this) {
-        north || south => '|',
-        east || west => '-',
-      };
+    north || south => '|',
+    east || west => '-',
+  };
 }
 
 enum DirectionSquare {
