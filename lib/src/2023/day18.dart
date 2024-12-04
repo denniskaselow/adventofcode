@@ -16,10 +16,10 @@ int day18star1(Input input) {
     final match = converted.first;
     return (
       direction: switch (match.namedGroup('direction')) {
-        'U' => DirectionCross.north,
-        'D' => DirectionCross.south,
-        'L' => DirectionCross.west,
-        'R' => DirectionCross.east,
+        'U' => Direction.n,
+        'D' => Direction.s,
+        'L' => Direction.w,
+        'R' => Direction.e,
         final _ => throw Exception('invalid input $line'),
       },
       count: int.parse(match.namedGroup('count')!)
@@ -39,8 +39,8 @@ int day18star1(Input input) {
     for (var count = 0; count < instruction.count; count++) {
       x = x + instruction.direction.x;
       y = y + instruction.direction.y;
-      if (instruction.direction == DirectionCross.north ||
-          instruction.direction == DirectionCross.south) {
+      if (instruction.direction == Direction.n ||
+          instruction.direction == Direction.s) {
         if (lastVertical != instruction.direction) {
           grid[(x: x, y: y - instruction.direction.y)] = '|';
         }
@@ -86,10 +86,10 @@ int day18star2(Input input) {
     final match = converted.first;
     return (
       direction: switch (match.namedGroup('direction')) {
-        '3' => DirectionCross.north,
-        '1' => DirectionCross.south,
-        '2' => DirectionCross.west,
-        '0' => DirectionCross.east,
+        '3' => Direction.n,
+        '1' => Direction.s,
+        '2' => Direction.w,
+        '0' => Direction.e,
         final _ => throw Exception('invalid input $line'),
       },
       count: int.parse(match.namedGroup('count')!, radix: 16)

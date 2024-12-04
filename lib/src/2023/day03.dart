@@ -16,7 +16,7 @@ int day03star1(Input input) {
       if (int.tryParse(match.namedGroup('number') ?? '') case final number?) {
         var isValid = false;
         for (var x = match.start; x < match.end && !isValid; x++) {
-          for (final direction in DirectionSquare.values) {
+          for (final direction in Direction.values) {
             if (y + direction.y >= 0 &&
                 y + direction.y < lines.length &&
                 x + direction.x >= 0 &&
@@ -47,7 +47,7 @@ int day03star2(Input input) {
       if (int.tryParse(match.namedGroup('number') ?? '') case final number?) {
         var isValid = false;
         for (var x = match.start; x < match.end && !isValid; x++) {
-          for (final direction in DirectionSquare.values) {
+          for (final direction in Direction.values) {
             if (y + direction.y >= 0 &&
                 y + direction.y < lines.length &&
                 x + direction.x >= 0 &&
@@ -74,7 +74,7 @@ int day03star2(Input input) {
     for (final match in gearPattern.allMatches(line)) {
       final parts = <PartId>{};
       for (var x = match.start; x < match.end; x++) {
-        for (final direction in DirectionSquare.values) {
+        for (final direction in Direction.values) {
           if (y + direction.y >= 0 &&
               y + direction.y < lines.length &&
               x + direction.x >= 0 &&

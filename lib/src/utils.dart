@@ -116,36 +116,7 @@ extension PrimeFactors on int {
 
 int sum(int a, int b) => a + b;
 
-enum DirectionCross {
-  north(0, -1, '^'),
-  south(0, 1, 'v'),
-  east(1, 0, '>'),
-  west(-1, 0, '<');
-
-  const DirectionCross(this.x, this.y, this.ui);
-
-  final int x;
-  final int y;
-  final String ui;
-  DirectionCross get opposite => switch (this) {
-    north => south,
-    south => north,
-    east => west,
-    west => east,
-  };
-  DirectionSquare get asSquare => switch (this) {
-    north => DirectionSquare.n,
-    south => DirectionSquare.s,
-    east => DirectionSquare.e,
-    west => DirectionSquare.w,
-  };
-  String get orientation => switch (this) {
-    north || south => '|',
-    east || west => '-',
-  };
-}
-
-enum DirectionSquare {
+enum Direction {
   n(0, -1),
   ne(1, -1),
   e(1, 0),
@@ -155,31 +126,26 @@ enum DirectionSquare {
   w(-1, 0),
   nw(-1, -1);
 
-  const DirectionSquare(this.x, this.y);
+  const Direction(this.x, this.y);
 
   final int x;
   final int y;
-  static Set<DirectionSquare> get north => {nw, n, ne};
-  static Set<DirectionSquare> get south => {sw, s, se};
-  static Set<DirectionSquare> get west => {nw, w, sw};
-  static Set<DirectionSquare> get east => {ne, e, se};
-}
+  static const List<Direction> plus = [n, e, s, w];
 
-enum DirectionDiagonal {
-  ne(1, -1),
-  se(1, 1),
-  sw(-1, 1),
-  nw(-1, -1);
-
-  const DirectionDiagonal(this.x, this.y);
-
-  final int x;
-  final int y;
-
-  DirectionDiagonal get opposite => switch (this) {
+  Direction get opposite => switch (this) {
+    n => s,
+    e => w,
+    s => n,
+    w => e,
     nw => se,
     ne => sw,
     se => nw,
     sw => ne,
+  };
+  String get orientation => switch (this) {
+    n || s => '|',
+    e || w => '-',
+    nw || se => r'\',
+    ne || sw => '/',
   };
 }

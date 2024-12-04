@@ -31,7 +31,7 @@ int day21star1(Input input, [int maxSteps = 64]) {
     final nextSteps = currentSteps + 1;
     if (currentSteps <= maxSteps) {
       if (visited.add((x: current.x, y: current.y))) {
-        for (final direction in DirectionCross.values) {
+        for (final direction in Direction.plus) {
           final next = (x: current.x + direction.x, y: current.y + direction.y);
           if (!visited.contains((x: next.x, y: next.y)) &&
               next.x >= 0 &&
@@ -118,7 +118,7 @@ int day21star2(Input input, [int maxSteps = 26501365]) {
     final nextSteps = currentSteps + 1;
     if (currentSteps <= maxSteps) {
       if (visited.add((x: current.x, y: current.y))) {
-        for (final direction in DirectionCross.values) {
+        for (final direction in Direction.plus) {
           final next = (x: current.x + direction.x, y: current.y + direction.y);
           final nextMod = (
             x: (current.x + direction.x) % maxX,

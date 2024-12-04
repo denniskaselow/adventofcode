@@ -3,9 +3,9 @@ import 'package:collection/collection.dart';
 import '../utils.dart';
 
 typedef Coords = ({int x, int y});
-typedef Tile = ({Set<DirectionCross> directions, String original});
+typedef Tile = ({Set<Direction> directions, String original});
 
-final startDirections = DirectionCross.values.toSet();
+final startDirections = Direction.plus.toSet();
 
 int day10star1(Input input) {
   final area = getArea(input);
@@ -78,14 +78,14 @@ Map<Coords, Tile> getArea(
           return (
             column.$1,
             switch (column.$2) {
-              '-' => {DirectionCross.west, DirectionCross.east},
-              '|' => {DirectionCross.north, DirectionCross.south},
-              '7' => {DirectionCross.west, DirectionCross.south},
-              'J' => {DirectionCross.north, DirectionCross.west},
-              'L' => {DirectionCross.north, DirectionCross.east},
-              'F' => {DirectionCross.south, DirectionCross.east},
+              '-' => {Direction.w, Direction.e},
+              '|' => {Direction.n, Direction.s},
+              '7' => {Direction.w, Direction.s},
+              'J' => {Direction.n, Direction.w},
+              'L' => {Direction.n, Direction.e},
+              'F' => {Direction.s, Direction.e},
               'S' => startDirections,
-              final _ => <DirectionCross>{},
+              final _ => <Direction>{},
             },
             pipe,
           );

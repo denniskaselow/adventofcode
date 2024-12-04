@@ -17,7 +17,7 @@ List<int> evaluateGrid(Input input) {
     for (var x = 0; x < grid[y].length; x++) {
       var isVisible = false;
       var scenicScore = 1;
-      for (final direction in DirectionCross.values) {
+      for (final direction in Direction.plus) {
         final state = checkDirection(grid, x, y, direction, grid[x][y]);
         isVisible |= state.visible;
         scenicScore *= state.viewingDistance;
@@ -35,7 +35,7 @@ State checkDirection(
   List<List<int>> grid,
   int x,
   int y,
-  DirectionCross direction,
+  Direction direction,
   int height,
 ) {
   if (x == 0 || x == grid.length - 1 || y == 0 || y == grid[x].length - 1) {

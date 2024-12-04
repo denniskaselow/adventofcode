@@ -12,8 +12,8 @@ Iterable<String> _processInput(Input input) => input.getLines();
 
 int day16star1(Input input) {
   final grid = getGrid(input);
-  final result = <Coords, Set<DirectionCross>>{};
-  traverseGrid(grid, (x: -1, y: 0), DirectionCross.east, result);
+  final result = <Coords, Set<Direction>>{};
+  traverseGrid(grid, (x: -1, y: 0), Direction.e, result);
   return result.length;
 }
 
@@ -22,21 +22,21 @@ int day16star2(Input input) {
 
   var maxEnergized = 0;
   for (var x = 0; x < maxX; x++) {
-    var result = <Coords, Set<DirectionCross>>{};
-    traverseGrid(grid, (x: x, y: -1), DirectionCross.south, result);
+    var result = <Coords, Set<Direction>>{};
+    traverseGrid(grid, (x: x, y: -1), Direction.s, result);
     maxEnergized = max(maxEnergized, result.length);
 
-    result = <Coords, Set<DirectionCross>>{};
-    traverseGrid(grid, (x: x, y: maxY), DirectionCross.north, result);
+    result = <Coords, Set<Direction>>{};
+    traverseGrid(grid, (x: x, y: maxY), Direction.n, result);
     maxEnergized = max(maxEnergized, result.length);
   }
   for (var y = 0; y < maxY; y++) {
-    var result = <Coords, Set<DirectionCross>>{};
-    traverseGrid(grid, (x: -1, y: y), DirectionCross.east, result);
+    var result = <Coords, Set<Direction>>{};
+    traverseGrid(grid, (x: -1, y: y), Direction.e, result);
     maxEnergized = max(maxEnergized, result.length);
 
-    result = <Coords, Set<DirectionCross>>{};
-    traverseGrid(grid, (x: maxX, y: y), DirectionCross.west, result);
+    result = <Coords, Set<Direction>>{};
+    traverseGrid(grid, (x: maxX, y: y), Direction.w, result);
     maxEnergized = max(maxEnergized, result.length);
   }
 
@@ -66,8 +66,8 @@ Map<Coords, String> getGrid(Input input) {
 void traverseGrid(
   Grid grid,
   Coords lastPos,
-  DirectionCross direction,
-  Map<Coords, Set<DirectionCross>> energized,
+  Direction direction,
+  Map<Coords, Set<Direction>> energized,
 ) {
   final pos = (x: lastPos.x + direction.x, y: lastPos.y + direction.y);
   if (pos.x < 0 || pos.x == maxX || pos.y < 0 || pos.y == maxY) {
@@ -84,40 +84,40 @@ void traverseGrid(
 
   if (grid[pos] case final cell?) {
     if (cell == '|') {
-      if (direction == DirectionCross.east ||
-          direction == DirectionCross.west) {
-        traverseGrid(grid, pos, DirectionCross.north, energized);
-        traverseGrid(grid, pos, DirectionCross.south, energized);
+      if (direction == Direction.e ||
+          direction == Direction.w) {
+        traverseGrid(grid, pos, Direction.n, energized);
+        traverseGrid(grid, pos, Direction.s, energized);
       } else {
         traverseGrid(grid, pos, direction, energized);
       }
     } else if (cell == '-') {
-      if (direction == DirectionCross.north ||
-          direction == DirectionCross.south) {
-        traverseGrid(grid, pos, DirectionCross.west, energized);
-        traverseGrid(grid, pos, DirectionCross.east, energized);
+      if (direction == Direction.n ||
+          direction == Direction.s) {
+        traverseGrid(grid, pos, Direction.w, energized);
+        traverseGrid(grid, pos, Direction.e, energized);
       } else {
         traverseGrid(grid, pos, direction, energized);
       }
     } else if (cell == '/') {
-      if (direction == DirectionCross.east) {
-        traverseGrid(grid, pos, DirectionCross.north, energized);
-      } else if (direction == DirectionCross.south) {
-        traverseGrid(grid, pos, DirectionCross.west, energized);
-      } else if (direction == DirectionCross.west) {
-        traverseGrid(grid, pos, DirectionCross.south, energized);
-      } else if (direction == DirectionCross.north) {
-        traverseGrid(grid, pos, DirectionCross.east, energized);
+      if (direction == Direction.e) {
+        traverseGrid(grid, pos, Direction.n, energized);
+      } else if (direction == Direction.s) {
+        traverseGrid(grid, pos, Direction.w, energized);
+      } else if (direction == Direction.w) {
+        traverseGrid(grid, pos, Direction.s, energized);
+      } else if (direction == Direction.n) {
+        traverseGrid(grid, pos, Direction.e, energized);
       }
     } else if (cell == r'\') {
-      if (direction == DirectionCross.east) {
-        traverseGrid(grid, pos, DirectionCross.south, energized);
-      } else if (direction == DirectionCross.south) {
-        traverseGrid(grid, pos, DirectionCross.east, energized);
-      } else if (direction == DirectionCross.west) {
-        traverseGrid(grid, pos, DirectionCross.north, energized);
-      } else if (direction == DirectionCross.north) {
-        traverseGrid(grid, pos, DirectionCross.west, energized);
+      if (direction == Direction.e) {
+        traverseGrid(grid, pos, Direction.s, energized);
+      } else if (direction == Direction.s) {
+        traverseGrid(grid, pos, Direction.e, energized);
+      } else if (direction == Direction.w) {
+        traverseGrid(grid, pos, Direction.n, energized);
+      } else if (direction == Direction.n) {
+        traverseGrid(grid, pos, Direction.w, energized);
       }
     }
   } else {

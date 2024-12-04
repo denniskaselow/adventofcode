@@ -11,11 +11,11 @@ int day04star1(Input input) {
   final grid = _processInput(input);
   final rows = grid.length;
   final columns = grid.first.length;
-  final result = <(int, int, DirectionSquare), bool>{};
+  final result = <(int, int, Direction), bool>{};
   for (var row = 0; row < rows; row++) {
     for (var col = 0; col < columns; col++) {
       for (var i = 0; i < xmas.length; i++) {
-        for (final direction in DirectionSquare.values) {
+        for (final direction in Direction.values) {
           if (i == 0) {
             if (grid[row][col] == xmas[i]) {
               result[(row, col, direction)] = true;
@@ -54,7 +54,7 @@ int day04star2(Input input) {
         result[(row, col)] = false;
         continue;
       }
-      for (final direction in [DirectionDiagonal.nw, DirectionDiagonal.ne]) {
+      for (final direction in [Direction.nw, Direction.ne]) {
         final nextRow = row + direction.y;
         final nextCol = col + direction.x;
         final oppositeRow = row + direction.opposite.y;

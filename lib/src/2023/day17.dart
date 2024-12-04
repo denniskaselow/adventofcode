@@ -16,7 +16,7 @@ typedef CellKey = ({
 typedef Move = ({
   int x,
   int y,
-  DirectionCross direction,
+  Direction direction,
   int heatloss,
 });
 
@@ -63,8 +63,8 @@ int getSolution(Input input, int moveMin, int moveMax) {
     return result;
   })
     ..addAll([
-      (x: 0, y: 0, direction: DirectionCross.east, heatloss: 0),
-      (x: 0, y: 0, direction: DirectionCross.south, heatloss: 0),
+      (x: 0, y: 0, direction: Direction.e, heatloss: 0),
+      (x: 0, y: 0, direction: Direction.s, heatloss: 0),
     ]);
 
   var maxHeatloss = ((maxX + maxY) * 9 * 1.5).toInt();
@@ -91,7 +91,7 @@ int getSolution(Input input, int moveMin, int moveMax) {
     }
 
     visited[currentPos] = currentHeatloss;
-    for (final direction in DirectionCross.values) {
+    for (final direction in Direction.plus) {
       if (direction != current.direction &&
           direction != current.direction.opposite) {
         for (var i = moveMin; i <= moveMax; i++) {

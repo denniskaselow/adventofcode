@@ -10,15 +10,15 @@ var maxY = 0;
 
 enum Tile {
   forest([]),
-  path(DirectionCross.values),
-  slopeWest([DirectionCross.west]),
-  slopeEast([DirectionCross.east]),
-  slopeNorth([DirectionCross.north]),
-  slopeSouth([DirectionCross.south]);
+  path(Direction.plus),
+  slopeWest([Direction.w]),
+  slopeEast([Direction.e]),
+  slopeNorth([Direction.n]),
+  slopeSouth([Direction.s]);
 
   const Tile(this.directions);
 
-  final List<DirectionCross> directions;
+  final List<Direction> directions;
 }
 
 int day23star1(Input input) => getSteps(input);
@@ -53,7 +53,7 @@ int getSteps(Input input, {bool withSlopes = true}) {
       .where((element) => element.value == Tile.path)
       .map((e) => e.key)) {
     var connections = 0;
-    for (final direction in DirectionCross.values) {
+    for (final direction in Direction.plus) {
       if (grid[(x: pos.x + direction.x, y: pos.y + direction.y)] !=
           Tile.forest) {
         connections++;
