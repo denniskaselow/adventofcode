@@ -164,3 +164,22 @@ enum DirectionSquare {
   static Set<DirectionSquare> get west => {nw, w, sw};
   static Set<DirectionSquare> get east => {ne, e, se};
 }
+
+enum DirectionDiagonal {
+  ne(1, -1),
+  se(1, 1),
+  sw(-1, 1),
+  nw(-1, -1);
+
+  const DirectionDiagonal(this.x, this.y);
+
+  final int x;
+  final int y;
+
+  DirectionDiagonal get opposite => switch (this) {
+    nw => se,
+    ne => sw,
+    se => nw,
+    sw => ne,
+  };
+}
