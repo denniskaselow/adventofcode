@@ -148,4 +148,11 @@ enum Direction {
     nw || se => r'\',
     ne || sw => '/',
   };
+  Direction get nextClockwise => switch (this) {
+    n => e,
+    e => s,
+    s => w,
+    w => n,
+    _ => throw 'unsupported',
+  };
 }
