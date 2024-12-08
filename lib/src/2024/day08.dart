@@ -23,9 +23,7 @@ int day08star1(Input input) {
     for (final [first, second] in value.permutations(2)) {
       final diffX = second.x - first.x;
       final diffY = second.y - first.y;
-      antinodes
-        ..add((x: first.x - diffX, y: first.y - diffY))
-        ..add((x: second.x + diffX, y: second.y + diffY));
+      antinodes.add((x: second.x + diffX, y: second.y + diffY));
     }
   }
   final size = input.getLines().length;
@@ -42,14 +40,11 @@ int day08star2(Input input) {
       final diffX = second.x - first.x;
       final diffY = second.y - first.y;
       for (var i = 0; i < size; i++) {
-        final newAntinodes = [
-          (x: first.x - i * diffX, y: first.y - i * diffY),
-          (x: second.x + i * diffX, y: second.y + i * diffY),
-        ].where((antinode) => _isInGrid(antinode, size));
-        if (newAntinodes.isEmpty) {
+        final antinode = (x: second.x + i * diffX, y: second.y + i * diffY);
+        if (!_isInGrid(antinode, size)) {
           break;
         }
-        newAntinodes.forEach(antinodes.add);
+        antinodes.add(antinode);
       }
     }
   }
