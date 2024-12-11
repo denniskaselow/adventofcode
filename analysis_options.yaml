@@ -173,7 +173,7 @@ linter:
     - provide_deprecation_message
     # - public_member_api_docs
     - recursive_getters
-    - require_trailing_commas
+    # - require_trailing_commas # new formatter no longer needs this
     - secure_pubspec_urls
     - sized_box_for_whitespace
     - sized_box_shrink_expand

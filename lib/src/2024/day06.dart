@@ -35,7 +35,7 @@ int day06star1(Input input) {
 
 int day06star2(Input input) {
   final grid = _processInput(input);
-  var start = grid.entries.firstWhere((entry) => entry.value == '^').key;
+  final start = grid.entries.firstWhere((entry) => entry.value == '^').key;
   var guardCell = start;
   var guardDirection = Direction.n;
   final visited = <({int x, int y})>{};

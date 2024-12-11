@@ -14,7 +14,7 @@ int _blink(Input input, int times) {
   var currentCount = <String, int>{for (final value in current) value: 1};
   var nextCount = <String, int>{};
   var next = <String>{};
-  var cache = <String, List<String>>{};
+  final cache = <String, List<String>>{};
 
   for (var i = 0; i < times; i++) {
     for (final element in current) {

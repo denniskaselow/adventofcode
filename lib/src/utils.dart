@@ -153,6 +153,6 @@ enum Direction {
     e => s,
     s => w,
     w => n,
-    _ => throw 'unsupported',
+    _ => throw UnsupportedError('clockwise currently only supports news'),
   };
 }
