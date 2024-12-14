@@ -11,3 +11,4 @@ export 'src/2024/day10.dart' show day10star1, day10star2;
 export 'src/2024/day11.dart' show day11star1, day11star2;
 export 'src/2024/day12.dart' show day12star1, day12star2;
 export 'src/2024/day13.dart' show day13star1, day13star2;
+export 'src/2024/day14.dart' show day14star1, day14star2;
