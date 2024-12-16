@@ -155,4 +155,11 @@ enum Direction {
     w => n,
     _ => throw UnsupportedError('clockwise currently only supports news'),
   };
+  Direction get nextAntiClockwise => switch (this) {
+    n => w,
+    e => n,
+    s => e,
+    w => s,
+    _ => throw UnsupportedError('clockwise currently only supports news'),
+  };
 }
