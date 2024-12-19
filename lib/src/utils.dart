@@ -114,6 +114,10 @@ extension PrimeFactors on int {
   }
 }
 
+extension ConvertExtension<T> on T {
+  S convert<S>(S Function(T self) convert) => convert(this);
+}
+
 int sum(int a, int b) => a + b;
 
 enum Direction {
