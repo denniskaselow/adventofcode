@@ -4,8 +4,8 @@ import 'package:adventofcode/adventofcode2025.dart';
 import 'package:adventofcode/src/utils.dart';
 
 void main(List<String> arguments) {
-  run(1, day03star1);
-  run(2, day03star2);
+  run(1, day04star1);
+  run(2, day04star2);
 }
 
 void run(int star, dynamic Function(Input input) solver) {
