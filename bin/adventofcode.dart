@@ -1,11 +1,11 @@
 import 'dart:io' as io;
 
-import 'package:adventofcode/adventofcode2021.dart';
+import 'package:adventofcode/adventofcode2025.dart';
 import 'package:adventofcode/src/utils.dart';
 
 void main(List<String> arguments) {
-  run(1, day02star1);
-  run(2, day02star2);
+  run(1, day01star1);
+  run(2, day01star2);
 }
 
 void run(int star, dynamic Function(Input input) solver) {
