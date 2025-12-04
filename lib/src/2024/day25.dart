@@ -31,7 +31,7 @@ int day25star1(Input input) {
   final lockasAndKeys = _processInput(input);
 
   for (final lockOrKey in lockasAndKeys) {
-    bool isLock = false;
+    var isLock = false;
     if (lockOrKey[(x: 0, y: 0)] == '#') {
       isLock = true;
     }
