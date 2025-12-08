@@ -22,20 +22,20 @@ int day08star1(Input input, {int connectionCount = 1000}) {
     Set<_Cell>? circuit1;
     Set<_Cell>? circuit2;
     for (final circuit in circuits) {
-      if (circuit.contains(pairing.$1)) {
+      if (circuit.contains(pairing.cell)) {
         circuit1 = circuit;
       }
-      if (circuit.contains(pairing.$2)) {
+      if (circuit.contains(pairing.otherCell)) {
         circuit2 = circuit;
       }
     }
     switch ((circuit1, circuit2)) {
       case (null, null):
-        circuits.add({pairing.$1, pairing.$2});
+        circuits.add({pairing.cell, pairing.otherCell});
       case (final circuit?, null):
-        circuit.add(pairing.$2);
+        circuit.add(pairing.otherCell);
       case (null, final circuit?):
-        circuit.add(pairing.$1);
+        circuit.add(pairing.cell);
       case (final circuit1?, final circuit2?) when circuit1 == circuit2:
         // both alread in the same circuit, no new connection added
         break;
@@ -65,20 +65,20 @@ int day08star2(Input input) {
     Set<_Cell>? circuit1;
     Set<_Cell>? circuit2;
     for (final circuit in circuits) {
-      if (circuit.contains(pairing.$1)) {
+      if (circuit.contains(pairing.cell)) {
         circuit1 = circuit;
       }
-      if (circuit.contains(pairing.$2)) {
+      if (circuit.contains(pairing.otherCell)) {
         circuit2 = circuit;
       }
     }
     switch ((circuit1, circuit2)) {
       case (null, null):
-        circuits.add({pairing.$1, pairing.$2});
+        circuits.add({pairing.cell, pairing.otherCell});
       case (final circuit?, null):
-        circuit.add(pairing.$2);
+        circuit.add(pairing.otherCell);
       case (null, final circuit?):
-        circuit.add(pairing.$1);
+        circuit.add(pairing.cell);
       case (final circuit1?, final circuit2?) when circuit1 == circuit2:
         // both alread in the same circuit, no new connection added
         break;
@@ -87,7 +87,7 @@ int day08star2(Input input) {
         circuit1.addAll(circuit2);
     }
     if (circuits.length == 1 && circuits.first.length == cells.length) {
-      result = pairing.$1.x * pairing.$2.x;
+      result = pairing.cell.x * pairing.otherCell.x;
       break;
     }
   }
@@ -95,19 +95,35 @@ int day08star2(Input input) {
   return result;
 }
 
-List<(_Cell, _Cell, double)> _getPairingsSortedByDistance(List<_Cell> cells) {
-  final pairingsWithDistance = <(_Cell, _Cell, double)>[];
+List<_Pairing> _getPairingsSortedByDistance(List<_Cell> cells) {
+  final distances = <int>[];
+  final pairings = <_Pairing>[];
   for (final (index, cell) in cells.indexed) {
     for (final otherCell in cells.skip(index + 1)) {
       final xDiff = (cell.x - otherCell.x).abs();
       final yDiff = (cell.y - otherCell.y).abs();
       final zDiff = (cell.z - otherCell.z).abs();
-      final distance = sqrt(xDiff * xDiff + yDiff * yDiff + zDiff * zDiff);
-      pairingsWithDistance.add((cell, otherCell, distance));
+      final distance = sqrt(
+        xDiff * xDiff + yDiff * yDiff + zDiff * zDiff,
+      ).toInt();
+      distances.add(distance);
+      pairings.add(
+        _Pairing(cell: cell, otherCell: otherCell, distance: distance),
+      );
     }
   }
-  pairingsWithDistance.sort(
-    (a, b) => (a.$3 - b.$3).toInt(),
-  );
-  return pairingsWithDistance;
+  pairings.sort((a, b) => a.distance - b.distance);
+  return pairings;
+}
+
+class _Pairing {
+  _Pairing({
+    required this.cell,
+    required this.otherCell,
+    required this.distance,
+  });
+
+  final _Cell cell;
+  final _Cell otherCell;
+  final int distance;
 }
