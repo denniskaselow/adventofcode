@@ -7,3 +7,4 @@ export 'src/2025/day06.dart' show day06star1, day06star2;
 export 'src/2025/day07.dart' show day07star1, day07star2;
 export 'src/2025/day08.dart' show day08star1, day08star2;
 export 'src/2025/day09.dart' show day09star1, day09star2;
+export 'src/2025/day10.dart' show day10star1, day10star2;
